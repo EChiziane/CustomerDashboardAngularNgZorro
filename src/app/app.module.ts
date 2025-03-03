@@ -13,12 +13,25 @@ import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
+import {CustomerComponent} from './customer/customer.component';
+import {NzAutosizeDirective, NzInputDirective, NzInputGroupComponent, NzInputModule} from 'ng-zorro-antd/input';
+import {NzButtonComponent, NzButtonModule} from 'ng-zorro-antd/button';
+import {NzDatePickerComponent, NzDatePickerModule, NzRangePickerComponent} from 'ng-zorro-antd/date-picker';
+import {NzCardComponent} from 'ng-zorro-antd/card';
+import {NzFilterTriggerComponent, NzTableModule, NzThAddOnComponent} from 'ng-zorro-antd/table';
+import {NzDropdownMenuComponent} from 'ng-zorro-antd/dropdown';
+import {NzDrawerComponent, NzDrawerContentDirective, NzDrawerModule} from 'ng-zorro-antd/drawer';
+import {NzSelectComponent, NzSelectModule} from 'ng-zorro-antd/select';
+import {NzFormDirective, NzFormModule} from 'ng-zorro-antd/form';
+import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
+import {NzDividerComponent} from 'ng-zorro-antd/divider';
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CustomerComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +39,26 @@ registerLocaleData(en);
     IconsProviderModule,
     NzLayoutModule,
     NzMenuModule,
-    FormsModule
+    FormsModule,
+    NzInputDirective,
+    NzButtonComponent,
+    NzDividerComponent,
+    NzTableModule,
+    NzDropdownMenuComponent,
+    NzFilterTriggerComponent,
+    NzThAddOnComponent,
+    NzRowDirective,
+    NzColDirective,
+    NzCardComponent,
+    NzDrawerComponent,
+    NzFormDirective,
+    NzInputGroupComponent,
+    NzSelectComponent,
+    NzRangePickerComponent,
+    NzAutosizeDirective,
+    NzDrawerContentDirective,
+    NzDatePickerComponent,
+    NzButtonModule, NzDrawerModule, NzDatePickerModule, NzFormModule, NzInputModule, NzSelectModule
   ],
   providers: [
     provideClientHydration(withEventReplay()),
