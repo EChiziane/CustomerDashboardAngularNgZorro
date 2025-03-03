@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CustomerService} from '../services/customer.service';
 import {Customer} from '../models/customer';
@@ -16,7 +16,7 @@ interface DataItem {
   templateUrl: './customer.component.html',
   styleUrl: './customer.component.scss'
 })
-export class CustomerComponent {
+export class CustomerComponent  implements  OnInit{
 
   dataSource: any;
 
@@ -80,6 +80,10 @@ this.dataSource=customers;
 
   close(): void {
     this.visible1 = false;
+  }
+
+  ngOnInit(): void {
+    this.getCustomers();
   }
 
 
