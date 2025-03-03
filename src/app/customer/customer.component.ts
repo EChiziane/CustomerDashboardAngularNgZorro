@@ -1,14 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {CustomerService} from '../services/customer.service';
-import {Customer} from '../models/customer';
-
-interface DataItem {
-  name: string;
-  age: number;
-  address: string;
-}
-
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { CustomerService } from '../services/customer.service';
+import { Customer } from '../models/customer';
 
 @Component({
   selector: 'app-customer',
@@ -16,50 +9,22 @@ interface DataItem {
   templateUrl: './customer.component.html',
   styleUrl: './customer.component.scss'
 })
-export class CustomerComponent  implements  OnInit{
+export class CustomerComponent implements OnInit {
 
-  dataSource: any;
+  dataSource: Customer[] = []; // Inicializado como array vazio
+  listOfDisplayData: Customer[] = [];
 
-  constructor(private http: HttpClient,
-              private customerService: CustomerService) {
-  }
-
+  constructor(private http: HttpClient, private customerService: CustomerService) {}
 
   getCustomers() {
     this.customerService.getCustomers().subscribe((customers: Customer[]) => {
-this.dataSource=customers;
-    })
+      this.dataSource = customers;
+      this.listOfDisplayData = [...this.dataSource]; // Atualiza após receber os dados
+    });
   }
-
-
-
-
 
   searchValue = '';
   visible = false;
-  listOfData: DataItem[] = [
-    {
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    },
-    {
-      name: 'Jim Red',
-      age: 32,
-      address: 'London No. 2 Lake Park'
-    }
-  ];
-  listOfDisplayData = [...this.listOfData];
 
   reset(): void {
     this.searchValue = '';
@@ -68,9 +33,10 @@ this.dataSource=customers;
 
   search(): void {
     this.visible = false;
-    this.listOfDisplayData = this.listOfData.filter((item: DataItem) => item.name.indexOf(this.searchValue) !== -1);
+    this.listOfDisplayData = this.dataSource.filter(
+      (item: Customer) => item.name.toLowerCase().includes(this.searchValue.toLowerCase())
+    );
   }
-
 
   visible1 = false;
 
@@ -85,6 +51,4 @@ this.dataSource=customers;
   ngOnInit(): void {
     this.getCustomers();
   }
-
-
 }
