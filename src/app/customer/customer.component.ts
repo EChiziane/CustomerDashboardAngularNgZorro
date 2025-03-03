@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {CustomerService} from '../services/customer.service';
+import {Customer} from '../models/customer';
 
 interface DataItem {
   name: string;
@@ -14,6 +17,23 @@ interface DataItem {
   styleUrl: './customer.component.scss'
 })
 export class CustomerComponent {
+
+  dataSource: any;
+
+  constructor(private http: HttpClient,
+              private customerService: CustomerService) {
+  }
+
+
+  getCustomers() {
+    this.customerService.getCustomers().subscribe((customers: Customer[]) => {
+this.dataSource=customers;
+    })
+  }
+
+
+
+
 
   searchValue = '';
   visible = false;

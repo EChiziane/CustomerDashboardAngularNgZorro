@@ -1,0 +1,38 @@
+import { Injectable } from '@angular/core';
+import {environment} from '../../environments/environments';
+import {HttpClient} from '@angular/common/http';
+import {Observable, take} from 'rxjs';
+import {Customer} from '../models/customer';
+
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CustomerService {
+
+  private baseURL = environment.baseURL + "/customers";
+
+  constructor(private http: HttpClient) {
+  }
+
+  public getCustomers(): Observable<Customer[]> {
+    return this.http.get<Customer[]>(this.baseURL)
+  }
+
+  public deleteCustomer(id: number): Observable<Customer> {
+    return this.http.delete<Customer>(`${this.baseURL}/${id}`)
+  }
+
+  public addCustomer(employee: any): Observable<Customer> {
+    console.log(employee)
+    return this.http.post<Customer>(this.baseURL, employee).pipe(take(1))
+  }
+
+  public getCustomerById(id: number): Observable<Customer> {
+    return this.http.get<Customer>(`${this.baseURL}/${id}`);
+  }
+
+
+
+}
