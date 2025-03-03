@@ -7,4 +7,5 @@ export interface Customer {
   status: 'ATIVO' | 'INATIVO';
   valve: number;
   monthsInDebt: number;
+  createdAt: string;
 }

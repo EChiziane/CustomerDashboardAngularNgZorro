@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-welcome',
@@ -7,5 +7,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './welcome.component.scss'
 })
 export class WelcomeComponent {
-  constructor() {}
+  constructor() {
+  }
 }

@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environments';
 import {HttpClient} from '@angular/common/http';
 import {Observable, take} from 'rxjs';
 import {Customer} from '../models/customer';
-
 
 
 @Injectable({
@@ -32,7 +31,6 @@ export class CustomerService {
   public getCustomerById(id: number): Observable<Customer> {
     return this.http.get<Customer>(`${this.baseURL}/${id}`);
   }
-
 
 
 }

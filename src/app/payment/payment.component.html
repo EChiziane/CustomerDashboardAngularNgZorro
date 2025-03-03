@@ -1,0 +1,116 @@
+<div class="main-content">
+  <div class="header">
+    <p> Lista de Pagamentos</p>
+  </div>
+  <div class="dash">
+    <div style="background: #ECECEC; padding:30px;">
+      <div [nzGutter]="8" nz-row>
+        <div [nzSpan]="8" nz-col>
+          <nz-card nzTitle="Total Payments">
+            <p>{{ totalPayments }}</p> <!-- Exibe o total de pagamentos -->
+          </nz-card>
+        </div>
+        <div [nzSpan]="8" nz-col>
+          <nz-card nzTitle="Confirmed Payments">
+            <p>{{ confirmedPayments }}</p> <!-- Exibe o total de pagamentos confirmados -->
+          </nz-card>
+        </div>
+        <div [nzSpan]="8" nz-col>
+          <nz-card nzTitle="Unconfirmed Payments">
+            <p>{{ unconfirmedPayments }}</p> <!-- Exibe o total de pagamentos não confirmados -->
+          </nz-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="filter">
+    <input class="input-flex" nz-input placeholder="Search by amount" type="number"/>
+    <button (click)="open()" nz-button nzType="primary">Adicionar</button>
+  </div>
+  <div class="table">
+
+    <nz-table #nzTable [nzData]="listOfDisplayData" [nzScroll]="{ x: '1150px', y: '240px' }" nzTableLayout="fixed">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Amount</th>
+        <th>Reference Month</th>
+        <th>Payment Method</th>
+        <th>Confirmed</th>
+        <th>Created At</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of nzTable.data; ">
+        <td>{{ data.id }}</td>
+        <td>{{ data.amount }}</td>
+        <td>{{ data.referenceMonth }}</td>
+        <td>{{ data.paymentMethod }}</td>
+        <td>{{ data.confirmed ? 'Yes' : 'No' }}</td>
+        <td>{{ data.createdAt }}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<nz-drawer
+  (nzOnClose)="close()"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzFooter]="footerTpl"
+  [nzMaskClosable]="false"
+  [nzVisible]="visible1"
+  [nzWidth]="720"
+  nzTitle="Create Payment"
+>
+  <form (ngSubmit)="createPayment()" *nzDrawerContent [formGroup]="paymentForm" nz-form>
+    <div [nzGutter]="16" nz-row>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Amount</nz-form-label>
+          <nz-form-control>
+            <input formControlName="amount" nz-input placeholder="Enter payment amount" type="number"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Payment Method</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="paymentMethod" nzPlaceHolder="Select payment method">
+              <nz-option nzLabel="Credit" nzValue="Credit"></nz-option>
+              <nz-option nzLabel="Cash" nzValue="Cash"></nz-option>
+              <nz-option nzLabel="Bank Transfer" nzValue="Bank Transfer"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div [nzGutter]="16" nz-row>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Reference Month</nz-form-label>
+          <nz-form-control>
+            <input formControlName="referenceMonth" nz-input placeholder="Enter reference month"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Confirmed</nz-form-label>
+          <nz-form-control>
+            <nz-switch formControlName="confirmed"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+
+  <ng-template #footerTpl>
+    <div style="float: right">
+      <button (click)="close()" nz-button style="margin-right: 8px;">Cancel</button>
+      <button (click)="createPayment()" nz-button nzType="primary">Submit</button>
+    </div>
+  </ng-template>
+</nz-drawer>
