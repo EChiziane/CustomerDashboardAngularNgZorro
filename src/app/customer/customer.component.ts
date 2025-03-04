@@ -13,7 +13,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class CustomerComponent implements OnInit {
 
 
-
   dataSource: Customer[] = []; // Inicializado como array vazio
   listOfDisplayData: Customer[] = [];
 
@@ -23,15 +22,9 @@ export class CustomerComponent implements OnInit {
   inactiveCustomers = 0;
 
 
-
   searchValue = '';
   visible = false;
   visible1 = false; // Controla a visibilidade do modal
-
-  constructor(private http: HttpClient, private customerService: CustomerService) {
-  }
-
-
   customerForm = new FormGroup({
     name: new FormControl('', Validators.required),
     contact: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
@@ -41,6 +34,8 @@ export class CustomerComponent implements OnInit {
     monthsInDebt: new FormControl(1, [Validators.required, Validators.min(0)]),
   });
 
+  constructor(private http: HttpClient, private customerService: CustomerService) {
+  }
 
   ngOnInit(): void {
     this.getCustomers();

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PaymentService } from '../services/payment.service';
-import { Payment } from '../models/payment';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {PaymentService} from '../services/payment.service';
+import {Payment} from '../models/payment';
+import {Customer} from '../models/customer';
+import {CustomerService} from '../services/customer.service';
 
 @Component({
   selector: 'app-payment',
@@ -10,7 +12,7 @@ import { Payment } from '../models/payment';
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent implements OnInit {
-
+  dataCostumers: Customer[] = []; // Lista de clientes
   dataSource: Payment[] = []; // Inicializado como array vazio
   listOfDisplayData: Payment[] = [];
 
@@ -27,28 +29,35 @@ export class PaymentComponent implements OnInit {
     referenceMonth: new FormControl('', Validators.required),
     paymentMethod: new FormControl('', Validators.required),
     confirmed: new FormControl(false),
+    customerId: new FormControl('', Validators.required), // Campo para o ID do Cliente
   });
 
-  constructor(private paymentService: PaymentService) {}
+  constructor(
+    private paymentService: PaymentService,
+    private customerService: CustomerService
+  ) {}
 
   ngOnInit(): void {
     this.getPayments();
+    this.getCustomers(); // Carrega os clientes
   }
 
   getPayments() {
     this.paymentService.getPayments().subscribe((payments: Payment[]) => {
       this.dataSource = payments;
       this.listOfDisplayData = [...this.dataSource]; // Atualiza após receber os dados
-
-      // Calcular Total, Confirmados e Não Confirmados
       this.calculatePaymentStats();
     });
   }
 
   calculatePaymentStats() {
     this.totalPayments = this.dataSource.length;
-    this.confirmedPayments = this.dataSource.filter(payment => payment.confirmed).length;
-    this.unconfirmedPayments = this.dataSource.filter(payment => !payment.confirmed).length;
+    this.confirmedPayments = this.dataSource.filter(
+      (payment) => payment.confirmed
+    ).length;
+    this.unconfirmedPayments = this.dataSource.filter(
+      (payment) => !payment.confirmed
+    ).length;
   }
 
   reset(): void {
@@ -59,7 +68,10 @@ export class PaymentComponent implements OnInit {
   search(): void {
     this.visible = false;
     this.listOfDisplayData = this.dataSource.filter(
-      (item: Payment) => item.referenceMonth.toLowerCase().includes(this.searchValue.toLowerCase())
+      (item: Payment) =>
+        item.referenceMonth
+          .toLowerCase()
+          .includes(this.searchValue.toLowerCase())
     );
   }
 
@@ -69,6 +81,12 @@ export class PaymentComponent implements OnInit {
 
   close(): void {
     this.visible1 = false;
+  }
+
+  getCustomers() {
+    this.customerService.getCustomers().subscribe((customers: Customer[]) => {
+      this.dataCostumers = customers;
+    });
   }
 
   public createPayment() {
@@ -84,7 +102,7 @@ export class PaymentComponent implements OnInit {
         this.dataSource = [...this.dataSource, newPayment];
         this.listOfDisplayData = [...this.dataSource]; // Atualiza a tabela
         this.calculatePaymentStats(); // Atualiza os dados estatísticos
-        this.paymentForm.reset({confirmed: false}); // Reseta o formulário
+        this.paymentForm.reset({ confirmed: false }); // Reseta o formulário
         this.close(); // Fecha o modal
       },
       error: (err) => {

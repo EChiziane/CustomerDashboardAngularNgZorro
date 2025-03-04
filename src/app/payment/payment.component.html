@@ -7,17 +7,17 @@
       <div [nzGutter]="8" nz-row>
         <div [nzSpan]="8" nz-col>
           <nz-card nzTitle="Total Payments">
-            <p>{{ totalPayments }}</p> <!-- Exibe o total de pagamentos -->
+            <p>{{ totalPayments }}</p>
           </nz-card>
         </div>
         <div [nzSpan]="8" nz-col>
           <nz-card nzTitle="Confirmed Payments">
-            <p>{{ confirmedPayments }}</p> <!-- Exibe o total de pagamentos confirmados -->
+            <p>{{ confirmedPayments }}</p>
           </nz-card>
         </div>
         <div [nzSpan]="8" nz-col>
           <nz-card nzTitle="Unconfirmed Payments">
-            <p>{{ unconfirmedPayments }}</p> <!-- Exibe o total de pagamentos não confirmados -->
+            <p>{{ unconfirmedPayments }}</p>
           </nz-card>
         </div>
       </div>
@@ -28,7 +28,6 @@
     <button (click)="open()" nz-button nzType="primary">Adicionar</button>
   </div>
   <div class="table">
-
     <nz-table #nzTable [nzData]="listOfDisplayData" [nzScroll]="{ x: '1150px', y: '240px' }" nzTableLayout="fixed">
       <thead>
       <tr>
@@ -41,7 +40,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let data of nzTable.data; ">
+      <tr *ngFor="let data of nzTable.data;">
         <td>{{ data.id }}</td>
         <td>{{ data.amount }}</td>
         <td>{{ data.referenceMonth }}</td>
@@ -85,6 +84,8 @@
           </nz-form-control>
         </nz-form-item>
       </div>
+
+
     </div>
 
     <div [nzGutter]="16" nz-row>
@@ -96,6 +97,23 @@
           </nz-form-control>
         </nz-form-item>
       </div>
+
+
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Customer</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="customerId" nzPlaceHolder="Select Customer">
+              <nz-option *ngFor="let customer of dataCostumers" [nzLabel]="customer.name" [nzValue]="customer.id"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <!-- Campo de Cliente -->
+    <div [nzGutter]="16" nz-row>
       <div nz-col nzSpan="12">
         <nz-form-item>
           <nz-form-label>Confirmed</nz-form-label>
@@ -105,6 +123,7 @@
         </nz-form-item>
       </div>
     </div>
+
   </form>
 
   <ng-template #footerTpl>
