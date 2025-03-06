@@ -26,11 +26,15 @@ export class PaymentComponent implements OnInit {
 
   paymentForm = new FormGroup({
     amount: new FormControl('', [Validators.required, Validators.min(0)]),
-    referenceMonth: new FormControl('', Validators.required),
+    numMonths: new FormControl('', Validators.required),
     paymentMethod: new FormControl('', Validators.required),
     confirmed: new FormControl(false),
     customerId: new FormControl('', Validators.required), // Campo para o ID do Cliente
   });
+
+
+
+
 
   constructor(
     private paymentService: PaymentService,

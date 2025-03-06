@@ -91,7 +91,7 @@ export class CustomerComponent implements OnInit {
         this.dataSource = [...this.dataSource, newCustomer];
         this.listOfDisplayData = [...this.dataSource]; // Atualiza a tabela
         this.calculateCustomerStats(); // Atualiza os dados estatísticos
-        this.customerForm.reset({status: 'ATIVO', valve: 1073741824, monthsInDebt: 1}); // Reseta o formulário
+        this.customerForm.reset({status: 'ATIVO', monthsInDebt: 1}); // Reseta o formulário
         this.close(); // Fecha o modal
       },
       error: (err) => {
