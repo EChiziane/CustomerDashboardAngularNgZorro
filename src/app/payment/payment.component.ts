@@ -114,4 +114,16 @@ export class PaymentComponent implements OnInit {
       },
     });
   }
+
+  deletePayment(data: Payment) {
+    
+  }
+
+  editPayment(data: Payment) {
+    
+  }
+
+  viewPayment(data: Payment) {
+    
+  }
 }
