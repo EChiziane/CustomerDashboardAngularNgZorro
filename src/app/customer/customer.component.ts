@@ -99,4 +99,16 @@ export class CustomerComponent implements OnInit {
       },
     });
   }
+
+  viewCustomer(data: Customer) {
+
+  }
+
+  editCustomer(data: Customer) {
+
+  }
+
+  deleteCustomer(data: Customer) {
+
+  }
 }

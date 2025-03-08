@@ -1,0 +1,39 @@
+<div class="main-content">
+  <div class="header">
+    <p>Detalhes do Cliente</p>
+  </div>
+  <div class="details-wrapper">
+    <nz-card nzTitle="Informações do Cliente" class="details-card">
+      <div class="details-row"><strong>Nome:</strong> <span>{{ customer.name }}</span></div>
+      <div class="details-row"><strong>Contato:</strong> <span>{{ customer.contact }}</span></div>
+      <div class="details-row"><strong>Endereço:</strong> <span>{{ customer.address }}</span></div>
+      <div class="details-row">
+        <strong>Status:</strong>
+        <nz-tag [nzColor]="customer.status === 'ATIVO' ? 'green' : 'red'">{{ customer.status }}</nz-tag>
+      </div>
+      <div class="details-row"><strong>Valve:</strong> <span>{{ customer.valve }} MZN</span></div>
+      <div class="details-row"><strong>Data de Criação:</strong> <span>{{ customer.createdAt | date: 'dd/MM/yyyy - HH:mm' }}</span></div>
+    </nz-card>
+
+    <nz-card nzTitle="Informações de Dívida" class="debt-card">
+      <div class="details-row">
+        <div class="debt-cards-wrapper">
+          <nz-card nzTitle="Meses em Dívida" class="debt-summary-card">
+            <div class="debt-summary-content">{{ customer.monthsInDebt }}</div>
+          </nz-card>
+          <nz-card nzTitle="Meses Correspondentes" class="debt-summary-card">
+            <div class="debt-summary-content-txt">
+              <ul>
+                <li *ngFor="let month of debtMonths">{{ month }}</li>
+              </ul>
+            </div>
+          </nz-card>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div class="actions">
+    <button nz-button nzType="default" (click)="goBack()">Voltar</button>
+    <button nz-button nzType="primary" (click)="editCustomer()">Editar</button>
+  </div>
+</div>

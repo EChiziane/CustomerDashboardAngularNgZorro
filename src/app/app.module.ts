@@ -26,6 +26,8 @@ import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
 import {NzDividerComponent} from 'ng-zorro-antd/divider';
 import {PaymentComponent} from './payment/payment.component';
 import {NzSwitchComponent} from 'ng-zorro-antd/switch';
+import {CustomerDetailsComponent} from './customer/customer-details/customer-details.component';
+import {NzTagComponent} from 'ng-zorro-antd/tag';
 
 registerLocaleData(en);
 
@@ -33,7 +35,8 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     PaymentComponent,
-    CustomerComponent
+    CustomerComponent,
+    CustomerDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,7 @@ registerLocaleData(en);
     NzAutosizeDirective,
     NzDrawerContentDirective,
     NzDatePickerComponent,
-    NzButtonModule, NzDrawerModule, NzDatePickerModule, NzFormModule, NzInputModule, NzSelectModule, ReactiveFormsModule, NzSwitchComponent
+    NzButtonModule, NzDrawerModule, NzDatePickerModule, NzFormModule, NzInputModule, NzSelectModule, ReactiveFormsModule, NzSwitchComponent, NzTagComponent
   ],
   providers: [
     provideClientHydration(withEventReplay()),

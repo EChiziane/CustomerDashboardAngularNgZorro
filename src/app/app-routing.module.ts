@@ -2,10 +2,12 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {CustomerComponent} from './customer/customer.component';
 import {PaymentComponent} from './payment/payment.component';
+import {CustomerDetailsComponent} from './customer/customer-details/customer-details.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: '/welcome'},
   {path: 'customer', component: CustomerComponent},
+  {path:'customer-detail/:id', component: CustomerDetailsComponent},
   {path: 'payment', component: PaymentComponent},
   {path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)}
 ];

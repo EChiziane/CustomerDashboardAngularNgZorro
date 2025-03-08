@@ -28,7 +28,7 @@ export class CustomerService {
     return this.http.post<Customer>(this.baseURL, employee).pipe(take(1))
   }
 
-  public getCustomerById(id: number): Observable<Customer> {
+  public getCustomerById(id: any): Observable<Customer> {
     return this.http.get<Customer>(`${this.baseURL}/${id}`);
   }
 
