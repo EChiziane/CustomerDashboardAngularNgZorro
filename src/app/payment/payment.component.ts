@@ -93,6 +93,13 @@ export class PaymentComponent implements OnInit {
     });
   }
 
+
+  printPayment(data: Payment) {
+this.paymentService.getPaymentInvoice(data.id).subscribe((payment: Payment) => {
+  console.log(data.id)
+})
+  }
+
   public createPayment() {
     if (this.paymentForm.invalid) {
       console.error('Erro: O formulário contém campos inválidos.');
@@ -116,14 +123,16 @@ export class PaymentComponent implements OnInit {
   }
 
   deletePayment(data: Payment) {
-    
+
   }
 
   editPayment(data: Payment) {
-    
+
   }
 
   viewPayment(data: Payment) {
-    
+
   }
+
+
 }
