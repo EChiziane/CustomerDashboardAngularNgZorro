@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 import {CustomerService} from '../../services/customer.service';
 import {Customer} from '../../models/customer';
+import {Payment} from '../../models/payment';
+import {PaymentService} from '../../services/payment.service';
 
 @Component({
   selector: 'app-customer-details',
@@ -14,10 +16,13 @@ export class CustomerDetailsComponent implements OnInit{
   @Input() customerId!:string;
   customer!:Customer;
   debtMonths: string[] = [];
+  paymentDataSource:Payment[]=[];
+  listOfDisplayData:Payment[]=[];
 
   constructor(private  http: HttpClient,
               private route: ActivatedRoute,
-              private customerService: CustomerService) {
+              private customerService: CustomerService,
+              private paymentService: PaymentService) {
 
 
   }
@@ -26,7 +31,7 @@ export class CustomerDetailsComponent implements OnInit{
   this.route.params.subscribe(params => {
     this.customerId= params['id'];
   });
-
+this.getPayments();
   this.getCustomer();
   }
 
@@ -62,6 +67,25 @@ export class CustomerDetailsComponent implements OnInit{
   }
 
   editCustomer() {
+
+  }
+
+  getPayments() {
+    this.paymentService.getPayments().subscribe((payments: Payment[]) => {
+      this.paymentDataSource = payments;
+      this.listOfDisplayData = [...this.paymentDataSource]; // Atualiza após receber os dados
+    });
+  }
+
+  printPayment(data: Payment) {
+
+  }
+
+  deletePayment(data: Payment) {
+
+  }
+
+  viewPayment(data: Payment) {
 
   }
 }

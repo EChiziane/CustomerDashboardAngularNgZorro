@@ -14,7 +14,6 @@
       <div class="details-row"><strong>Valve:</strong> <span>{{ customer.valve }} MZN</span></div>
       <div class="details-row"><strong>Data de Criação:</strong> <span>{{ customer.createdAt | date: 'dd/MM/yyyy - HH:mm' }}</span></div>
     </nz-card>
-
     <nz-card nzTitle="Informações de Dívida" class="debt-card">
       <div class="details-row">
         <div class="debt-cards-wrapper">
@@ -31,6 +30,42 @@
         </div>
       </div>
     </nz-card>
+  </div>
+  <div class="table">
+    <nz-table #nzTable [nzData]="listOfDisplayData" [nzScroll]="{ x: '1150px', y: '240px' }" nzTableLayout="fixed">
+      <thead>
+      <tr>
+        <th>Client Name</th>
+        <th>Amount</th>
+        <th>Reference Month</th>
+        <th>Payment Method</th>
+        <th>Confirmed</th>
+        <th>Created At</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of nzTable.data;">
+        <td>{{data.customerName}}</td>
+        <td>{{ data.amount }}</td>
+        <td>{{ data.referenceMonth }}</td>
+        <td>{{ data.paymentMethod }}</td>
+        <td>{{ data.confirmed ? 'Yes' : 'No' }}</td>
+        <td>{{ data.paymentDate | date: 'dd MM yyyy - HH:mm'  }}</td>
+        <td>
+          <button [routerLink]="['/payment-detail',data.id ]" nz-button nzType="link" nzSize="small" (click)="viewPayment(data)">
+            <nz-icon nzType="eye" nzTheme="outline"></nz-icon>
+          </button>
+          <button nz-button nzType="link" nzSize="small" (click)="printPayment(data)">
+            <nz-icon nzType="printer" nzTheme="outline"></nz-icon>
+          </button>
+          <button nz-button nzType="link" nzSize="small" nzDanger (click)="deletePayment(data)">
+            <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
   </div>
   <div class="actions">
     <button nz-button nzType="default" (click)="goBack()">Voltar</button>

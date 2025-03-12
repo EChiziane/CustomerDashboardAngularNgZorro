@@ -1,23 +1,32 @@
 .main-content {
   display: flex;
   flex-direction: column;
-  height: 100%; /* Ajusta o conteúdo à altura disponível no componente pai */
+  height: 100vh; /* Ocupa 100% da altura da janela */
   padding: 20px;
-  box-sizing: border-box; /* Evita que o padding aumente o tamanho total */
+  box-sizing: border-box;
+}
+
+.header {
+  flex: 0 0 5%; /* Header ocupa 10% da altura */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f1f1;
 }
 
 .details-wrapper {
+  flex: 0 0 30%; /* Details ocupa 30% da altura */
   display: flex;
-  gap: 20px; /* Espaçamento entre os cards */
+  gap: 20px;
   justify-content: space-between;
-  flex-wrap: wrap; /* Permite que os cards se ajustem para o próximo "line" se não couberem */
+  flex-wrap: wrap;
   margin-top: 20px;
 }
 
 .details-card, .debt-card {
-  flex: 1 1 calc(50% - 20px); /* Os cards ocupam 50% da largura menos a margem */
-  min-width: 300px; /* Define uma largura mínima para os cards */
-  height: auto; /* Altura ajustável conforme o conteúdo */
+  flex: 1 1 calc(50% - 20px);
+  min-width: 300px;
+  height: 100%; /* Garante que ambas as divs tenham a mesma altura */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -25,33 +34,45 @@
 
 .debt-cards-wrapper {
   display: flex;
-  gap: 20px; /* Espaçamento entre os dois novos cards */
+  gap: 20px;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .debt-summary-card {
   flex: 1;
-  height: 100%; /* Garante que ambos os cards tenham a mesma altura */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; /* Faz com que os cards dentro da wrapper tenham a mesma altura */
 }
 
 .debt-summary-content {
-  font-size: 36px; /* Aumenta o tamanho da fonte */
-  font-weight: bold; /* Deixa o texto em negrito */
-  color: #007bff; /* Cor azul */
-  background-color: #f1f1f1; /* Cor de fundo suave, semelhante a um painel */
+  font-size: 36px;
+  font-weight: bold;
+  color: #007bff;
+  background-color: #f1f1f1;
   padding: 20px;
-  border-radius: 8px; /* Borda arredondada */
-  text-align: center; /* Centraliza o texto */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra suave ao redor para destacar o card */
-  margin: 10px 0; /* Adiciona margem para separar os cards */
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
 }
-.debt-summary-content-txt{
+
+.debt-summary-content-txt {
   padding: 20px;
 }
 
-.actions {
+.table {
+  flex: 0 0 50%; /* Table ocupa 50% da altura */
   margin-top: 20px;
+  overflow: auto;
+}
+
+.actions {
+  flex: 0 0 10%; /* Actions ocupa 10% da altura */
+
   display: flex;
-  gap: 10px;
+
   justify-content: flex-end;
 }
