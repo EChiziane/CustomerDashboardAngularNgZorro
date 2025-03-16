@@ -33,13 +33,11 @@ export class PaymentComponent implements OnInit {
   });
 
 
-
-
-
   constructor(
     private paymentService: PaymentService,
     private customerService: CustomerService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.getPayments();
@@ -95,9 +93,9 @@ export class PaymentComponent implements OnInit {
 
 
   printPayment(data: Payment) {
-this.paymentService.getPaymentInvoice(data.id).subscribe((payment: Payment) => {
-  console.log(data.id)
-})
+    this.paymentService.getPaymentInvoice(data.id).subscribe((payment: Payment) => {
+      console.log(data.id)
+    })
   }
 
   public createPayment() {
@@ -113,7 +111,7 @@ this.paymentService.getPaymentInvoice(data.id).subscribe((payment: Payment) => {
         this.dataSource = [...this.dataSource, newPayment];
         this.listOfDisplayData = [...this.dataSource]; // Atualiza a tabela
         this.calculatePaymentStats(); // Atualiza os dados estatísticos
-        this.paymentForm.reset({ confirmed: false }); // Reseta o formulário
+        this.paymentForm.reset({confirmed: false}); // Reseta o formulário
         this.close(); // Fecha o modal
       },
       error: (err) => {

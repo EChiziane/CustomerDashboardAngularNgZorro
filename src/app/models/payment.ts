@@ -1,7 +1,7 @@
 export interface Payment {
   id: string;
   customerId: string;
-  customerName:string;
+  customerName: string;
   amount: number;
   numMonths: number;
   referenceMonth: string;

@@ -1,0 +1,5 @@
+<form (submit)="login()" [formGroup]="userForm">
+  <input formControlName="login" placeholder="Usuário" type="text">
+  <input formControlName="password" placeholder="Senha" type="password">
+  <button type="submit">Entrar</button>
+</form>

@@ -11,7 +11,7 @@ import {registerLocaleData} from '@angular/common';
 import en from '@angular/common/locales/en';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
-import {provideHttpClient} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient} from '@angular/common/http';
 import {CustomerComponent} from './customer/customer.component';
 import {NzAutosizeDirective, NzInputDirective, NzInputGroupComponent, NzInputModule} from 'ng-zorro-antd/input';
 import {NzButtonComponent, NzButtonModule} from 'ng-zorro-antd/button';
@@ -28,6 +28,8 @@ import {PaymentComponent} from './payment/payment.component';
 import {NzSwitchComponent} from 'ng-zorro-antd/switch';
 import {CustomerDetailsComponent} from './customer/customer-details/customer-details.component';
 import {NzTagComponent} from 'ng-zorro-antd/tag';
+import {AuthInterceptor} from './interceptors/auth-interceptor';
+import {LoginComponent} from './login/login.component';
 
 registerLocaleData(en);
 
@@ -36,12 +38,14 @@ registerLocaleData(en);
     AppComponent,
     PaymentComponent,
     CustomerComponent,
-    CustomerDetailsComponent
+    CustomerDetailsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     IconsProviderModule,
+    HttpClientModule,
     NzLayoutModule,
     NzMenuModule,
     FormsModule,
@@ -66,10 +70,17 @@ registerLocaleData(en);
     NzButtonModule, NzDrawerModule, NzDatePickerModule, NzFormModule, NzInputModule, NzSelectModule, ReactiveFormsModule, NzSwitchComponent, NzTagComponent
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
     provideClientHydration(withEventReplay()),
     provideNzI18n(en_US),
     provideAnimationsAsync(),
-    provideHttpClient()
+    provideHttpClient(),
+
+
   ],
   bootstrap: [AppComponent]
 })
