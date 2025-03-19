@@ -1,0 +1,35 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #f0f2f5;
+}
+.centered-card {
+  width: 350px;
+}
+.response-container {
+  margin-top: 10px;
+  text-align: center;
+}
+.login-button {
+  width: 100%;
+  margin-top: 10px;
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.input-spacing {
+  margin-bottom: 15px;
+  display: block;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px; /* Adiciona espaçamento abaixo do ícone */
+}
+

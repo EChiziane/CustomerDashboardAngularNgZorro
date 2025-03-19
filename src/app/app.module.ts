@@ -11,7 +11,7 @@ import {registerLocaleData} from '@angular/common';
 import en from '@angular/common/locales/en';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
-import {HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch} from '@angular/common/http';
 import {CustomerComponent} from './customer/customer.component';
 import {NzAutosizeDirective, NzInputDirective, NzInputGroupComponent, NzInputModule} from 'ng-zorro-antd/input';
 import {NzButtonComponent, NzButtonModule} from 'ng-zorro-antd/button';
@@ -30,6 +30,10 @@ import {CustomerDetailsComponent} from './customer/customer-details/customer-det
 import {NzTagComponent} from 'ng-zorro-antd/tag';
 import {AuthInterceptor} from './interceptors/auth-interceptor';
 import {LoginComponent} from './login/login.component';
+import {NzAlertComponent} from 'ng-zorro-antd/alert';
+import {NzCheckboxComponent} from 'ng-zorro-antd/checkbox';
+import {NzModalComponent, NzModalModule} from 'ng-zorro-antd/modal';
+import {NzAvatarComponent, NzAvatarModule} from 'ng-zorro-antd/avatar';
 
 registerLocaleData(en);
 
@@ -67,7 +71,19 @@ registerLocaleData(en);
     NzAutosizeDirective,
     NzDrawerContentDirective,
     NzDatePickerComponent,
-    NzButtonModule, NzDrawerModule, NzDatePickerModule, NzFormModule, NzInputModule, NzSelectModule, ReactiveFormsModule, NzSwitchComponent, NzTagComponent
+    NzButtonModule,
+    NzDrawerModule,
+    NzDatePickerModule,
+    NzFormModule,
+    NzInputModule,
+    NzSelectModule,
+    ReactiveFormsModule,
+    NzSwitchComponent,
+    NzTagComponent,
+    NzAlertComponent,
+    NzCheckboxComponent,
+    NzModalModule,
+    NzAvatarModule
   ],
   providers: [
     {
@@ -78,7 +94,7 @@ registerLocaleData(en);
     provideClientHydration(withEventReplay()),
     provideNzI18n(en_US),
     provideAnimationsAsync(),
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
 
 
   ],

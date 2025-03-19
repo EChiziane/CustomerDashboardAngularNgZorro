@@ -1,5 +1,126 @@
-<form (submit)="login()" [formGroup]="userForm">
-  <input formControlName="login" placeholder="Usuário" type="text">
-  <input formControlName="password" placeholder="Senha" type="password">
-  <button type="submit">Entrar</button>
-</form>
+<div class="login-container">
+  <nz-card nzTitle="Login" class="login-card centered-card">
+    <form [formGroup]="userForm" (ngSubmit)="login()">
+      <nz-input-group nzAddOnBeforeIcon="user" class="input-spacing">
+        <input nz-input id="login" placeholder="Usuário" formControlName="login" type="text" />
+      </nz-input-group>
+      <br />
+      <nz-input-group nzAddOnBeforeIcon="lock" class="input-spacing">
+        <input nz-input id="password" formControlName="password" placeholder="Senha" type="password" />
+      </nz-input-group>
+      <br />
+      <label nz-checkbox formControlName="rememberMe" class="input-spacing">Lembrar-me</label>
+      <div class="actions">
+        <a class="forgot-password" (click)="openForgotPasswordModal()">Esqueceu a senha?</a>
+      </div>
+      <button nz-button nzType="primary" type="submit" class="login-button">Entrar</button>
+      <div class="register-link">
+        Não tem conta? <a (click)="open()">Registrar</a>
+      </div>
+      <div class="response-container" *ngIf="responseMessage">
+        <nz-alert nzType="error" [nzMessage]="responseMessage" nzShowIcon></nz-alert>
+      </div>
+    </form>
+  </nz-card>
+</div>
+
+<nz-drawer
+  (nzOnClose)="close()"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzFooter]="footerTpl"
+  [nzMaskClosable]="false"
+  [nzVisible]="visible1"
+  [nzWidth]="720"
+  nzTitle="Registrar"
+
+>
+
+
+  <form nz-form [formGroup]="validateForm"  *nzDrawerContent (ngSubmit)="submitForm()">
+    <div    class="icon-container">
+      <nz-avatar [nzSize]="64" nzIcon="user"></nz-avatar>
+    </div>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+        <input nz-input formControlName="email" id="email" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>Password</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your password!">
+        <input nz-input type="password" formControlName="password" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>Confirm Password</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
+        <input nz-input type="password" formControlName="checkPassword" id="checkPassword" />
+        <ng-template #errorTpl let-control>
+          <div *ngIf="control.errors?.['required']">
+            Please confirm your password!
+          </div>
+          <div *ngIf="control.errors?.['confirm']">
+            Two passwords that you enter are inconsistent!
+          </div>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="nickname" nzRequired>Nickname</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your nickname!">
+        <input nz-input id="nickname" formControlName="nickname" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phoneNumber" nzRequired>Phone Number</nz-form-label>
+      <nz-form-control
+        [nzSm]="14"
+        [nzXs]="24"
+        [nzValidateStatus]="validateForm.controls['phoneNumber']"
+        nzErrorTip="Please input your phone number!"
+      >
+        <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+          <ng-template #addOnBeforeTemplate>
+            <nz-select formControlName="phoneNumberPrefix" class="phone-select">
+              <nz-option nzLabel="+86" nzValue="+86"></nz-option>
+              <nz-option nzLabel="+87" nzValue="+87"></nz-option>
+            </nz-select>
+          </ng-template>
+          <input formControlName="phoneNumber" id="phoneNumber" nz-input />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="website" nzRequired>Website</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input website!">
+        <input nz-input id="website" formControlName="website" placeholder="website" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item nz-row class="register-area">
+      <nz-form-control [nzSpan]="14" [nzOffset]="6">
+        <label nz-checkbox formControlName="agree">
+        <span>
+          I have read the
+          <a>agreement</a>
+        </span>
+        </label>
+      </nz-form-control>
+    </nz-form-item>
+
+
+  </form>
+
+  <ng-template #footerTpl>
+    <div style="float: right">
+      <button (click)="close()" nz-button style="margin-right: 8px;">Cancelar</button>
+      <button (click)="registerUser()" nz-button nzType="primary">Registrar</button>
+    </div>
+  </ng-template>
+</nz-drawer>
