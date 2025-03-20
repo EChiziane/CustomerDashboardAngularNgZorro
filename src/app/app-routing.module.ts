@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/welcome' },
   { path: 'customer', component: CustomerComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'customer-detail/:id', component: CustomerDetailsComponent },
+/*  { path: 'customer-detail/:id', component: CustomerDetailsComponent },*/
   { path: 'payment', component: PaymentComponent },
   { path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule) }
 ];
