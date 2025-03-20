@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Inject, Output, PLATFORM_ID} from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+
+  @Output() loginSuccess = new EventEmitter<void>();
+
   userForm = new FormGroup({
     login: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
@@ -20,7 +24,7 @@ export class LoginComponent {
     email: new FormControl('', [Validators.required, Validators.email])
   });
 
-validateForm = new FormGroup({
+  validateForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     checkPassword: new FormControl('', [Validators.required]),
@@ -35,13 +39,23 @@ validateForm = new FormGroup({
   isRegisterVisible = false;
   responseMessage: string | null = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {}
 
   login() {
     if (this.userForm.valid) {
       this.authService.login(this.userForm.value.login!, this.userForm.value.password!).subscribe({
-        next: () => {
-          this.router.navigate(['/customer']); // Redireciona após login bem-sucedido
+        next: (response) => {
+          if (response && response.token && isPlatformBrowser(this.platformId)) {
+            localStorage.setItem('token', response.token);
+            this.loginSuccess.emit();
+            this.router.navigate(['/customer']);
+          } else {
+            this.responseMessage = 'Erro ao receber o token da API.';
+          }
         },
         error: err => {
           console.error('Erro no login', err);
@@ -52,6 +66,7 @@ validateForm = new FormGroup({
       this.responseMessage = 'Preencha todos os campos corretamente.';
     }
   }
+
 
   openForgotPasswordModal(): void {
     this.isForgotPasswordVisible = true;
@@ -83,8 +98,6 @@ validateForm = new FormGroup({
     }
   }
 
-
-
   visible1 = false; // Controla a visibilidade do modal
   close(): void {
     this.visible1 = false;
@@ -93,10 +106,8 @@ validateForm = new FormGroup({
   open(): void {
     this.visible1 = true;
   }
-  createUser() {
 
-  }
-
+  createUser() {}
 
   // Validator for confirming passwords
   confirmPasswordValidator(form: FormGroup): { [key: string]: boolean } | null {
@@ -115,5 +126,4 @@ validateForm = new FormGroup({
       console.log('Form is invalid!');
     }
   }
-
 }

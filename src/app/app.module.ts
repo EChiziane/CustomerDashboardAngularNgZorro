@@ -34,6 +34,7 @@ import {NzAlertComponent} from 'ng-zorro-antd/alert';
 import {NzCheckboxComponent} from 'ng-zorro-antd/checkbox';
 import {NzModalComponent, NzModalModule} from 'ng-zorro-antd/modal';
 import {NzAvatarComponent, NzAvatarModule} from 'ng-zorro-antd/avatar';
+import {MainLayoutComponent} from './main-layout/main-layout.component';
 
 registerLocaleData(en);
 
@@ -43,7 +44,8 @@ registerLocaleData(en);
     PaymentComponent,
     CustomerComponent,
     CustomerDetailsComponent,
-    LoginComponent
+    LoginComponent,
+    MainLayoutComponent
   ],
   imports: [
     BrowserModule,
