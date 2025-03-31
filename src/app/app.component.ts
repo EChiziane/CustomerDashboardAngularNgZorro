@@ -8,7 +8,7 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  isAuthenticated = false;
+  //isAuthenticated = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {}
 
@@ -20,23 +20,32 @@ export class AppComponent implements OnInit {
   checkAuthentication() {
     if (isPlatformBrowser(this.platformId)) {
       const token = localStorage.getItem('authToken');
-      console.log(token);
-      this.isAuthenticated = !!token;
+     // this.isAuthenticated = !!token;
     }
   }
+
+  isAuthenticated(): boolean {
+    var str = localStorage.getItem('token');
+    console.log(str)
+    if (str == null) {
+      return false;
+    }
+    return true;
+  }
+
 
   onLoginSuccess() {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('token', 'meuTokenDeAcesso');
     }
-    this.isAuthenticated = true;
+    //this.isAuthenticated = true;
   }
 
   monitorToken() {
     if (isPlatformBrowser(this.platformId)) {
       setInterval(() => {
         if (!localStorage.getItem('token')) {
-          this.isAuthenticated = false;
+         // this.isAuthenticated = false;
         }
       }, 1000);
     }
