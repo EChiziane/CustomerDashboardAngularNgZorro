@@ -18,7 +18,7 @@ import {NzButtonComponent, NzButtonModule} from 'ng-zorro-antd/button';
 import {NzDatePickerComponent, NzDatePickerModule, NzRangePickerComponent} from 'ng-zorro-antd/date-picker';
 import {NzCardComponent} from 'ng-zorro-antd/card';
 import {NzFilterTriggerComponent, NzTableModule, NzThAddOnComponent} from 'ng-zorro-antd/table';
-import {NzDropdownMenuComponent} from 'ng-zorro-antd/dropdown';
+
 import {NzDrawerComponent, NzDrawerContentDirective, NzDrawerModule} from 'ng-zorro-antd/drawer';
 import {NzSelectComponent, NzSelectModule} from 'ng-zorro-antd/select';
 import {NzFormDirective, NzFormModule} from 'ng-zorro-antd/form';
@@ -32,9 +32,10 @@ import {AuthInterceptor} from './interceptors/auth-interceptor';
 import {LoginComponent} from './login/login.component';
 import {NzAlertComponent} from 'ng-zorro-antd/alert';
 import {NzCheckboxComponent} from 'ng-zorro-antd/checkbox';
-import {NzModalComponent, NzModalModule} from 'ng-zorro-antd/modal';
-import {NzAvatarComponent, NzAvatarModule} from 'ng-zorro-antd/avatar';
+import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
 import {MainLayoutComponent} from './main-layout/main-layout.component';
+import {NzModalModule} from 'ng-zorro-antd/modal';
+import {NzAvatarModule} from 'ng-zorro-antd/avatar';
 
 registerLocaleData(en);
 
@@ -53,13 +54,14 @@ registerLocaleData(en);
     IconsProviderModule,
     HttpClientModule,
     NzLayoutModule,
+    NzDropDownModule,
     NzMenuModule,
     FormsModule,
     NzInputDirective,
     NzButtonComponent,
     NzDividerComponent,
     NzTableModule,
-    NzDropdownMenuComponent,
+
     NzFilterTriggerComponent,
     NzThAddOnComponent,
     NzRowDirective,
@@ -85,7 +87,8 @@ registerLocaleData(en);
     NzAlertComponent,
     NzCheckboxComponent,
     NzModalModule,
-    NzAvatarModule
+    NzAvatarModule,
+
   ],
   providers: [
     {

@@ -1,16 +1,17 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  standalone:false,
+  standalone: false,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   //isAuthenticated = false;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {
+  }
 
   ngOnInit() {
     this.checkAuthentication();
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
   checkAuthentication() {
     if (isPlatformBrowser(this.platformId)) {
       const token = localStorage.getItem('authToken');
-     // this.isAuthenticated = !!token;
+      //this.isAuthenticated = !!token;
     }
   }
 
@@ -45,7 +46,7 @@ export class AppComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       setInterval(() => {
         if (!localStorage.getItem('token')) {
-         // this.isAuthenticated = false;
+          // this.isAuthenticated = false;
         }
       }, 1000);
     }

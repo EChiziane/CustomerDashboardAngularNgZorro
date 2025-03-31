@@ -26,14 +26,12 @@
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/payment">Payment</a>
           </li>
-
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/customer">Customer</a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/login">Login</a>
           </li>
-
         </ul>
       </li>
       <li nz-submenu nzIcon="form" nzOpen nzTitle="Form">
@@ -51,9 +49,24 @@
         <span (click)="isCollapsed = !isCollapsed" class="header-trigger">
             <span [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
                   class="trigger"
-                  nz-icon
-            ></span>
+                  nz-icon>
+            </span>
         </span>
+        <div class="user-menu">
+          <a [nzDropdownMenu]="userMenu" nz-dropdown>
+            <span class="user-icon" nz-icon nzType="user"></span>
+            <span class="username">Usuário</span>
+            <nz-icon nzType="down"></nz-icon>
+          </a>
+          <nz-dropdown-menu #userMenu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <a routerLink="/profile">Perfil</a>
+              </li>
+              <li (click)="logout()" nz-menu-item>Logout</li>
+            </ul>
+          </nz-dropdown-menu>
+        </div>
       </div>
     </nz-header>
     <nz-content>
@@ -63,4 +76,3 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
-

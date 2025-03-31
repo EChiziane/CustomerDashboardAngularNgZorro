@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-main-layout',
@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class MainLayoutComponent {
   isCollapsed = false;
+
+  logout() {
+    localStorage.removeItem('token')
+  }
 }

@@ -67,6 +67,10 @@ nz-header {
   padding: 0;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Alinha os itens na mesma linha e centraliza verticalmente */
+  padding-right: 20px;
 }
 
 nz-content {
@@ -78,4 +82,19 @@ nz-content {
   background: #fff;
   height: 100%;
   overflow-y: auto;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.user-icon {
+  margin-right: 8px;
+}
+
+.username {
+  margin-right: 8px;
 }

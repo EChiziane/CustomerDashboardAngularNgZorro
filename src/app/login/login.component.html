@@ -1,24 +1,24 @@
 <div class="login-container">
-  <nz-card nzTitle="Login" class="login-card centered-card">
-    <form [formGroup]="userForm" (ngSubmit)="login()">
-      <nz-input-group nzAddOnBeforeIcon="user" class="input-spacing">
-        <input nz-input id="login" placeholder="Usuário" formControlName="login" type="text" />
+  <nz-card class="login-card centered-card" nzTitle="Login">
+    <form (ngSubmit)="login()" [formGroup]="userForm">
+      <nz-input-group class="input-spacing" nzAddOnBeforeIcon="user">
+        <input formControlName="login" id="login" nz-input placeholder="Usuário" type="text"/>
       </nz-input-group>
-      <br />
-      <nz-input-group nzAddOnBeforeIcon="lock" class="input-spacing">
-        <input nz-input id="password" formControlName="password" placeholder="Senha" type="password" />
+      <br/>
+      <nz-input-group class="input-spacing" nzAddOnBeforeIcon="lock">
+        <input formControlName="password" id="password" nz-input placeholder="Senha" type="password"/>
       </nz-input-group>
-      <br />
-      <label nz-checkbox formControlName="rememberMe" class="input-spacing">Lembrar-me</label>
+      <br/>
+      <label class="input-spacing" formControlName="rememberMe" nz-checkbox>Lembrar-me</label>
       <div class="actions">
-        <a class="forgot-password" (click)="openForgotPasswordModal()">Esqueceu a senha?</a>
+        <a (click)="openForgotPasswordModal()" class="forgot-password">Esqueceu a senha?</a>
       </div>
-      <button nz-button nzType="primary" type="submit" class="login-button">Entrar</button>
+      <button class="login-button" nz-button nzType="primary" type="submit">Entrar</button>
       <div class="register-link">
         Não tem conta? <a (click)="open()">Registrar</a>
       </div>
-      <div class="response-container" *ngIf="responseMessage">
-        <nz-alert nzType="error" [nzMessage]="responseMessage" nzShowIcon></nz-alert>
+      <div *ngIf="responseMessage" class="response-container">
+        <nz-alert [nzMessage]="responseMessage" nzShowIcon nzType="error"></nz-alert>
       </div>
     </form>
   </nz-card>

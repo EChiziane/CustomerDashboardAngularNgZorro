@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Inject, Output, PLATFORM_ID} from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {AuthService} from '../services/auth.service';
+import {Router} from '@angular/router';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {isPlatformBrowser} from '@angular/common';
 
 @Component({
@@ -38,12 +38,14 @@ export class LoginComponent {
   isForgotPasswordVisible = false;
   isRegisterVisible = false;
   responseMessage: string | null = null;
+  visible1 = false; // Controla a visibilidade do modal
 
   constructor(
     private authService: AuthService,
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: object
-  ) {}
+  ) {
+  }
 
   login() {
     if (this.userForm.valid) {
@@ -66,7 +68,6 @@ export class LoginComponent {
       this.responseMessage = 'Preencha todos os campos corretamente.';
     }
   }
-
 
   openForgotPasswordModal(): void {
     this.isForgotPasswordVisible = true;
@@ -98,7 +99,6 @@ export class LoginComponent {
     }
   }
 
-  visible1 = false; // Controla a visibilidade do modal
   close(): void {
     this.visible1 = false;
   }
@@ -107,14 +107,15 @@ export class LoginComponent {
     this.visible1 = true;
   }
 
-  createUser() {}
+  createUser() {
+  }
 
   // Validator for confirming passwords
   confirmPasswordValidator(form: FormGroup): { [key: string]: boolean } | null {
     const password = form.get('password')?.value;
     const checkPassword = form.get('checkPassword')?.value;
     if (password && checkPassword && password !== checkPassword) {
-      return { confirm: true };
+      return {confirm: true};
     }
     return null;
   }
