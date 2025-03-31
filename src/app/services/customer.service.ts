@@ -23,9 +23,8 @@ export class CustomerService {
     return this.http.delete<Customer>(`${this.baseURL}/${id}`)
   }
 
-  public addCustomer(employee: any): Observable<Customer> {
-    console.log(employee)
-    return this.http.post<Customer>(this.baseURL, employee).pipe(take(1))
+  public addCustomer(customer: any): Observable<Customer> {
+    return this.http.post<Customer>(this.baseURL, customer).pipe(take(1))
   }
 
   public getCustomerById(id: any): Observable<Customer> {
