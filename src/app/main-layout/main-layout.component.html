@@ -26,9 +26,7 @@
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/customer">Customer</a>
           </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/register">Register</a>
-          </li>
+
         </ul>
       </li>
       <li nz-submenu nzIcon="form" nzOpen nzTitle="Form">
@@ -38,6 +36,19 @@
           </li>
         </ul>
       </li>
+
+      <li nz-submenu nzIcon="form" nzOpen nzTitle="Account">
+        <ul>
+
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/register">Register</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/users">Users</a>
+          </li>
+        </ul>
+      </li>
+
     </ul>
   </nz-sider>
   <nz-layout>

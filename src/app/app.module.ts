@@ -25,7 +25,7 @@ import {NzFormDirective, NzFormModule} from 'ng-zorro-antd/form';
 import {NzColDirective, NzRowDirective} from 'ng-zorro-antd/grid';
 import {NzDividerComponent} from 'ng-zorro-antd/divider';
 import {PaymentComponent} from './payment/payment.component';
-import {NzSwitchComponent} from 'ng-zorro-antd/switch';
+import {NzSwitchComponent, NzSwitchModule} from 'ng-zorro-antd/switch';
 import {CustomerDetailsComponent} from './customer/customer-details/customer-details.component';
 import {NzTagComponent} from 'ng-zorro-antd/tag';
 import {AuthInterceptor} from './interceptors/auth-interceptor';
@@ -36,6 +36,8 @@ import {NzDropDownModule} from 'ng-zorro-antd/dropdown';
 import {MainLayoutComponent} from './main-layout/main-layout.component';
 import {NzModalModule} from 'ng-zorro-antd/modal';
 import {NzAvatarModule} from 'ng-zorro-antd/avatar';
+
+import {ListuserComponent} from './listuser/listuser.component';
 import {SigninComponent} from './signin/signin.component';
 
 registerLocaleData(en);
@@ -48,7 +50,8 @@ registerLocaleData(en);
     CustomerDetailsComponent,
     LoginComponent,
     MainLayoutComponent,
-    SigninComponent
+  SigninComponent,
+    ListuserComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,6 +93,7 @@ registerLocaleData(en);
     NzCheckboxComponent,
     NzModalModule,
     NzAvatarModule,
+    NzSwitchModule
 
   ],
   providers: [

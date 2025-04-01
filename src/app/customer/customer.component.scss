@@ -22,11 +22,7 @@
 /* ============================= */
 /* Estilos para a div FILTER (Campo de entrada e botão) */
 /* ============================= */
-.filter {
-  display: flex;
-  gap: 10px; /* Espaço entre os elementos */
-  align-items: stretch; /* Faz os elementos terem a mesma altura */
-}
+
 
 .input-flex {
   flex: 1; /* Faz o input ocupar o máximo de espaço possível */
@@ -41,6 +37,9 @@
 /* Estilos para a div TABLE (Tabela de dados) */
 /* ============================= */
 .table {
+
+  height: 80%; /* Define que a tabela ocupará 80% da largura da página */
+  margin: 0 auto;
   /* Estilos para a tabela */
 }
 

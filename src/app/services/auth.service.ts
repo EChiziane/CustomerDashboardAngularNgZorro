@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environments';
 import {HttpClient} from '@angular/common/http';
-import {Observable, tap} from 'rxjs';
+import {Observable, take, tap} from 'rxjs';
+import {Customer} from "../models/customer";
+import {User} from "../models/user";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,10 @@ export class AuthService {
     );
   }
 
+  public getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseURL}/users`)
+  }
+
   signup(user:any): Observable<{ token: string }> {
     console.log(`${this.baseURL}/signup`, {user});
     return this.http.post<{ token: string }>(`${this.baseURL}/register`, user);
@@ -34,5 +40,17 @@ export class AuthService {
   getToken(): string | null {
     return localStorage.getItem('token'); // Recupera o token
   }
+
+
+
+
+  public deleteUser(id: any): Observable<User> {
+    return this.http.delete<User>(`${this.baseURL}/${id}`)
+  }
+
+  public addUser(user: any): Observable<User> {
+    return this.http.post<User>(this.baseURL, user).pipe(take(1))
+  }
+
 
 }
