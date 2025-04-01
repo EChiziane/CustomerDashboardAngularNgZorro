@@ -30,7 +30,7 @@ export class CustomerComponent implements OnInit {
     contact: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
     address: new FormControl('', Validators.required),
     status: new FormControl('ATIVO', Validators.required),
-    valve: new FormControl(1073741824, [Validators.required, Validators.min(0)]),
+    valve: new FormControl(10, [Validators.required, Validators.min(0)]),
     monthsInDebt: new FormControl(1, [Validators.required, Validators.min(0)]),
   });
 

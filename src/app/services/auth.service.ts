@@ -22,6 +22,11 @@ export class AuthService {
     );
   }
 
+  signup(user:any): Observable<{ token: string }> {
+    console.log(`${this.baseURL}/signup`, {user});
+    return this.http.post<{ token: string }>(`${this.baseURL}/register`, user);
+  }
+
   logout() {
     localStorage.removeItem('token'); // Remove o token ao sair
   }
