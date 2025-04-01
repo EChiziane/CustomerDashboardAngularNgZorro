@@ -2,6 +2,7 @@
   <div class="header">
     <p> Lista de Pagamentos</p>
   </div>
+
   <div class="dash">
     <div style="background: #ECECEC; padding:30px;">
       <div [nzGutter]="8" nz-row>
@@ -23,15 +24,17 @@
       </div>
     </div>
   </div>
+
+  <!-- Filtro (Campo de pesquisa e botão "Adicionar") -->
   <div class="filter">
     <input class="input-flex" nz-input placeholder="Search by amount" type="number"/>
     <button (click)="open()" nz-button nzType="primary">Adicionar</button>
   </div>
+
   <div class="table">
     <nz-table #nzTable [nzData]="listOfDisplayData" [nzScroll]="{ x: '1150px', y: '340px' }" nzTableLayout="fixed">
       <thead>
       <tr>
-
         <th>Client Name</th>
         <th>Amount</th>
         <th>Reference Month</th>
@@ -43,7 +46,6 @@
       </thead>
       <tbody>
       <tr *ngFor="let data of nzTable.data;">
-
         <td>{{ data.customerName }}</td>
         <td>{{ data.amount }}</td>
         <td>{{ data.referenceMonth }}</td>
@@ -51,8 +53,7 @@
         <td>{{ data.confirmed ? 'Yes' : 'No' }}</td>
         <td>{{ data.paymentDate | date: 'dd MM yyyy - HH:mm' }}</td>
         <td>
-          <button (click)="viewPayment(data)" [routerLink]="['/payment-detail',data.id ]" nz-button nzSize="small"
-                  nzType="link">
+          <button (click)="viewPayment(data)" [routerLink]="['/payment-detail', data.id]" nz-button nzSize="small" nzType="link">
             <nz-icon nzTheme="outline" nzType="eye"></nz-icon>
           </button>
           <button (click)="printPayment(data)" nz-button nzSize="small" nzType="link">
@@ -62,7 +63,6 @@
             <nz-icon nzTheme="outline" nzType="delete"></nz-icon>
           </button>
         </td>
-
       </tr>
       </tbody>
     </nz-table>
@@ -100,8 +100,6 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-
-
     </div>
 
     <div [nzGutter]="16" nz-row>
@@ -114,21 +112,18 @@
         </nz-form-item>
       </div>
 
-
       <div nz-col nzSpan="12">
         <nz-form-item>
           <nz-form-label>Customer</nz-form-label>
           <nz-form-control>
             <nz-select formControlName="customerId" nzPlaceHolder="Select Customer">
-              <nz-option *ngFor="let customer of dataCostumers" [nzLabel]="customer.name"
-                         [nzValue]="customer.id"></nz-option>
+              <nz-option *ngFor="let customer of dataCostumers" [nzLabel]="customer.name" [nzValue]="customer.id"></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
       </div>
     </div>
 
-    <!-- Campo de Cliente -->
     <div [nzGutter]="16" nz-row>
       <div nz-col nzSpan="12">
         <nz-form-item>
@@ -139,7 +134,6 @@
         </nz-form-item>
       </div>
     </div>
-
   </form>
 
   <ng-template #footerTpl>

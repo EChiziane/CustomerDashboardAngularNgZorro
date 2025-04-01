@@ -1,67 +1,18 @@
 /* ============================= */
-/* Estilos para a div MAIN-CONTENT */
-/* ============================= */
-.main-content {
-  height: 100%;
-  /* Se precisar de estilos globais para o container principal */
-}
-
-/* ============================= */
-/* Estilos para a div HEADER (Cabeçalho) */
-/* ============================= */
-.header {
-  /* Estilos para o cabeçalho */
-}
-
-/* ============================= */
-/* Estilos para a div DASH (Painel de cartões) */
-/* ============================= */
-.dash {
-  /* Estilos para a seção de dashboard */
-}
-
-/* ============================= */
 /* Estilos para a div FILTER (Campo de entrada e botão) */
 /* ============================= */
 .filter {
   display: flex;
-  gap: 10px; /* Espaço entre os elementos */
-  align-items: stretch; /* Faz os elementos terem a mesma altura */
-}
-
-.input-flex {
-  flex: 1; /* Faz o input ocupar o máximo de espaço possível */
-}
-
-[nz-button] {
-  margin-right: 8px;
+  align-items: center;
+  gap: 10px; /* Espaço entre o input e o botão */
   margin-bottom: 12px;
 }
 
-/* ============================= */
-/* Estilos para a div TABLE (Tabela de dados) */
-/* ============================= */
-.table {
-  /* Estilos para a tabela */
+.input-flex {
+  flex: 1; /* Faz o input ocupar todo o espaço disponível */
+  min-width: 200px; /* Define um tamanho mínimo */
 }
 
-/* ============================= */
-/* Estilos para a div SEARCH-BOX (Filtro de pesquisa dentro da tabela) */
-/* ============================= */
-.search-box {
-  padding: 8px;
-}
-
-.search-box input {
-  width: 188px;
-  margin-bottom: 8px;
-  display: block;
-}
-
-.search-box button {
-  width: 90px;
-}
-
-.search-button {
-  margin-right: 8px;
+button[nz-button] {
+  white-space: nowrap; /* Garante que o botão não quebre a linha */
 }
