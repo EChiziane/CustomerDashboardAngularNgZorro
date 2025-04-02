@@ -1,26 +1,22 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {CustomerService} from '../services/customer.service';
-import {Customer} from '../models/customer';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { CustomerService } from '../services/customer.service';
+import { Customer } from '../models/customer';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-customer',
   standalone: false,
   templateUrl: './customer.component.html',
-  styleUrl: './customer.component.scss'
+  styleUrls: ['./customer.component.scss']
 })
 export class CustomerComponent implements OnInit {
-
-
   dataSource: Customer[] = []; // Inicializado como array vazio
   listOfDisplayData: Customer[] = [];
-
 
   totalCustomers = 0;
   activeCustomers = 0;
   inactiveCustomers = 0;
-
 
   searchValue = '';
   visible = false;
@@ -34,8 +30,7 @@ export class CustomerComponent implements OnInit {
     monthsInDebt: new FormControl(1, [Validators.required, Validators.min(0)]),
   });
 
-  constructor(private http: HttpClient, private customerService: CustomerService) {
-  }
+  constructor(private http: HttpClient, private customerService: CustomerService) {}
 
   ngOnInit(): void {
     this.getCustomers();
@@ -45,8 +40,6 @@ export class CustomerComponent implements OnInit {
     this.customerService.getCustomers().subscribe((customers: Customer[]) => {
       this.dataSource = customers;
       this.listOfDisplayData = [...this.dataSource]; // Atualiza após receber os dados
-
-      // Calcular Total, Ativos e Inativos
       this.calculateCustomerStats();
     });
   }
@@ -56,7 +49,6 @@ export class CustomerComponent implements OnInit {
     this.activeCustomers = this.dataSource.filter(customer => customer.status === 'ATIVO').length;
     this.inactiveCustomers = this.dataSource.filter(customer => customer.status === 'INATIVO').length;
   }
-
 
   reset(): void {
     this.searchValue = '';
@@ -100,15 +92,9 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  viewCustomer(data: Customer) {
+  viewCustomer(data: Customer) {}
 
-  }
+  editCustomer(data: Customer) {}
 
-  editCustomer(data: Customer) {
-
-  }
-
-  deleteCustomer(data: Customer) {
-
-  }
+  deleteCustomer(data: Customer) {}
 }

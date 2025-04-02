@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {PaymentService} from '../services/payment.service';
-import {Payment} from '../models/payment';
-import {Customer} from '../models/customer';
-import {CustomerService} from '../services/customer.service';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PaymentService } from '../services/payment.service';
+import { Payment } from '../models/payment';
+import { Customer } from '../models/customer';
+import { CustomerService } from '../services/customer.service';
 
 @Component({
   selector: 'app-payment',
@@ -32,12 +32,10 @@ export class PaymentComponent implements OnInit {
     customerId: new FormControl('', Validators.required), // Campo para o ID do Cliente
   });
 
-
   constructor(
     private paymentService: PaymentService,
     private customerService: CustomerService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getPayments();
@@ -64,17 +62,14 @@ export class PaymentComponent implements OnInit {
 
   reset(): void {
     this.searchValue = '';
-    this.search();
+    this.filterData();
   }
 
-  search(): void {
-    this.visible = false;
-    this.listOfDisplayData = this.dataSource.filter(
-      (item: Payment) =>
-        item.referenceMonth
-          .toLowerCase()
-          .includes(this.searchValue.toLowerCase())
-    );
+  filterData(): void {
+    this.listOfDisplayData = this.dataSource.filter((item: Payment) => {
+      const customer = this.dataCostumers.find(c => c.id === item.customerId);
+      return customer?.name.toLowerCase().includes(this.searchValue.toLowerCase());
+    });
   }
 
   open(): void {
@@ -91,11 +86,10 @@ export class PaymentComponent implements OnInit {
     });
   }
 
-
   printPayment(data: Payment) {
     this.paymentService.getPaymentInvoice(data.id).subscribe((payment: Payment) => {
-      console.log(data.id)
-    })
+      console.log(data.id);
+    });
   }
 
   public createPayment() {
@@ -111,7 +105,7 @@ export class PaymentComponent implements OnInit {
         this.dataSource = [...this.dataSource, newPayment];
         this.listOfDisplayData = [...this.dataSource]; // Atualiza a tabela
         this.calculatePaymentStats(); // Atualiza os dados estatísticos
-        this.paymentForm.reset({confirmed: false}); // Reseta o formulário
+        this.paymentForm.reset({ confirmed: false }); // Reseta o formulário
         this.close(); // Fecha o modal
       },
       error: (err) => {
@@ -120,17 +114,13 @@ export class PaymentComponent implements OnInit {
     });
   }
 
-  deletePayment(data: Payment) {
+  deletePayment(data: Payment) {}
 
-  }
+  editPayment(data: Payment) {}
 
-  editPayment(data: Payment) {
-
-  }
-
-  viewPayment(data: Payment) {
-
-  }
-
-
+  viewPayment(data: Payment) {}
 }
+
+
+/* No HTML, adicione o evento (input) ao campo de pesquisa: */
+// <input class="input-flex" nz-input placeholder="Search by customer name" type="text" [(ngModel)]="searchValue" (input)="filterData()"/>

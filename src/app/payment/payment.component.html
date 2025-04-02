@@ -27,7 +27,8 @@
 
   <!-- Filtro (Campo de pesquisa e botão "Adicionar") -->
   <div class="filter">
-    <input class="input-flex" nz-input placeholder="Search by amount" type="number"/>
+    <input class="input-flex" nz-input placeholder="Search by amount" type="text" [(ngModel)]="searchValue" (input)="filterData()"/>
+
     <button (click)="open()" nz-button nzType="primary">Adicionar</button>
   </div>
 
