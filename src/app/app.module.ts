@@ -39,6 +39,8 @@ import {NzAvatarModule} from 'ng-zorro-antd/avatar';
 
 import {ListuserComponent} from './listuser/listuser.component';
 import {SigninComponent} from './signin/signin.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {NzStatisticComponent} from 'ng-zorro-antd/statistic';
 
 registerLocaleData(en);
 
@@ -52,6 +54,7 @@ registerLocaleData(en);
     MainLayoutComponent,
   SigninComponent,
     ListuserComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -93,7 +96,8 @@ registerLocaleData(en);
     NzCheckboxComponent,
     NzModalModule,
     NzAvatarModule,
-    NzSwitchModule
+    NzSwitchModule,
+    NzStatisticComponent
 
   ],
   providers: [

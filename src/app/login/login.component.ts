@@ -29,7 +29,7 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required]),
     checkPassword: new FormControl('', [Validators.required]),
     nickname: new FormControl('', [Validators.required]),
-    phoneNumberPrefix: new FormControl('+86'),
+    phoneNumberPrefix: new FormControl('+258'),
     phoneNumber: new FormControl('', [Validators.required]),
     website: new FormControl('', [Validators.required]),
     agree: new FormControl(false, Validators.requiredTrue)
@@ -54,7 +54,7 @@ export class LoginComponent {
           if (response && response.token && isPlatformBrowser(this.platformId)) {
             localStorage.setItem('token', response.token);
             this.loginSuccess.emit();
-            this.router.navigate(['/customer']);
+            this.router.navigate(['/dashboard']);
           } else {
             this.responseMessage = 'Erro ao receber o token da API.';
           }

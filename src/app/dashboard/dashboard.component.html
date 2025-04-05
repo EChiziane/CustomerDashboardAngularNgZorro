@@ -1,0 +1,248 @@
+<div class="main-content">
+  <div class="header">
+    <p>Lista de Pagamentos</p>
+  </div>
+
+  <div class="dash">
+    <div style="background: #ECECEC; padding:30px;">
+      <div [nzGutter]="8" nz-row>
+        <div [nzSpan]="8" nz-col>
+          <nz-card nzTitle="Total Payments">
+            <p>{{ totalPayments | number }}</p>
+          </nz-card>
+        </div>
+        <div [nzSpan]="8" nz-col>
+          <nz-card nzTitle="Total Amount">
+            <p>{{ totalAmount | currency:'CNY':'symbol':'1.2-2' }}</p>
+          </nz-card>
+        </div>
+        <div [nzSpan]="8" nz-col>
+          <nz-card nzTitle="Total Customers">
+            <p>{{ totalCustomers | number }}</p>
+          </nz-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter">
+    <input [(ngModel)]="searchValue" (ngModelChange)="search()" nz-input placeholder="Search..." type="text"/>
+    <button (click)="openPaymentDrawer()" nz-button nzType="primary">Novo Pagamento</button>
+    <button (click)="openCustomerDrawer()" nz-button nzType="default">Novo Cliente</button>
+  </div>
+
+  <div class="table-container">
+    <div class="table-scroll">
+      <nz-table #nzTable [nzData]="listOfDisplayData" [nzScroll]="{ x: '1150px' }" nzTableLayout="fixed">
+        <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Valor</th>
+          <th>Mês Referência</th>
+          <th>Método</th>
+          <th>Status</th>
+          <th>Data</th>
+          <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let payment of nzTable.data">
+          <td>{{ payment.customerName }}</td>
+          <td>{{ payment.amount | currency:'CNY':'symbol':'1.2-2' }}</td>
+          <td>{{ payment.referenceMonth }}</td>
+          <td>{{ payment.paymentMethod }}</td>
+          <td>
+            <nz-tag [nzColor]="payment.confirmed ? 'green' : 'orange'">
+              {{ payment.confirmed ? 'Confirmado' : 'Pendente' }}
+            </nz-tag>
+          </td>
+          <td>{{ payment.paymentDate | date:'dd/MM/yyyy - HH:mm' }}</td>
+          <td>
+            <button nz-button nzType="link" nzSize="small">
+              <nz-icon nzType="eye" nzTheme="outline"></nz-icon>
+            </button>
+            <button nz-button nzType="link" nzSize="small">
+              <nz-icon nzType="edit" nzTheme="outline"></nz-icon>
+            </button>
+            <button nz-button nzType="link" nzSize="small" nzDanger>
+              <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</div>
+
+<!-- (Os drawers permanecem exatamente iguais ao seu código original) -->
+
+<!-- Payment Drawer -->
+<nz-drawer
+  [nzVisible]="isPaymentDrawerVisible"
+  [nzWidth]="720"
+  nzTitle="Novo Pagamento"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  (nzOnClose)="closePaymentDrawer()">
+
+  <form *nzDrawerContent [formGroup]="paymentForm" nz-form>
+    <div nz-row [nzGutter]="16">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Valor</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzPrefixIcon="dollar">
+              <input formControlName="amount" nz-input type="number" placeholder="Valor">
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Método</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="paymentMethod" nzPlaceHolder="Selecione">
+              <nz-option nzValue="Credit" nzLabel="Crédito"></nz-option>
+              <nz-option nzValue="Cash" nzLabel="Dinheiro"></nz-option>
+              <nz-option nzValue="Transfer" nzLabel="Transferência"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="16">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Meses</nz-form-label>
+          <nz-form-control>
+            <input formControlName="numMonths" nz-input type="number" placeholder="Número de meses">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Cliente</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="customerId" nzPlaceHolder="Selecione o cliente">
+              <nz-option
+                *ngFor="let customer of customersData"
+                [nzValue]="customer.id"
+                [nzLabel]="customer.name">
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <nz-form-item>
+      <nz-form-label>Confirmado</nz-form-label>
+      <nz-form-control>
+        <nz-switch formControlName="confirmed"></nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+  <div *nzDrawerFooter>
+    <button nz-button nzType="default" (click)="closePaymentDrawer()">Cancelar</button>
+    <button nz-button nzType="primary" (click)="submitPayment()" [disabled]="paymentForm.invalid">Salvar</button>
+  </div>
+</nz-drawer>
+
+<!-- Customer Drawer -->
+<nz-drawer
+  [nzVisible]="isCustomerDrawerVisible"
+  [nzWidth]="720"
+  nzTitle="Novo Cliente"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  (nzOnClose)="closeCustomerDrawer()">
+
+  <form *nzDrawerContent [formGroup]="customerForm" nz-form>
+    <div nz-row [nzGutter]="16">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Nome</nz-form-label>
+          <nz-form-control>
+            <input formControlName="name" nz-input placeholder="Nome completo">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Contato</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzAddOnBefore="+258">
+              <input formControlName="contact" nz-input placeholder="Número de telefone">
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="16">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Endereço</nz-form-label>
+          <nz-form-control>
+            <input formControlName="address" nz-input placeholder="Endereço completo">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Status</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="status" nzPlaceHolder="Selecione">
+              <nz-option nzValue="ATIVO" nzLabel="Ativo"></nz-option>
+              <nz-option nzValue="INATIVO" nzLabel="Inativo"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="16">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Valvula</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzAddOnBefore="MZN">
+              <input formControlName="valve" nz-input type="number" placeholder="Valor">
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Meses em Dívida</nz-form-label>
+          <nz-form-control>
+            <input formControlName="monthsInDebt" nz-input type="number" placeholder="Meses">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <nz-form-item>
+      <nz-form-label>Descrição</nz-form-label>
+      <nz-form-control>
+        <textarea
+          formControlName="description"
+          nz-input
+          [nzAutosize]="{ minRows: 3, maxRows: 5 }"
+          placeholder="Descrição adicional">
+        </textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+  <div *nzDrawerFooter>
+    <button nz-button nzType="default" (click)="closeCustomerDrawer()">Cancelar</button>
+    <button nz-button nzType="primary" (click)="submitCustomer()" [disabled]="customerForm.invalid">Salvar</button>
+  </div>
+</nz-drawer>

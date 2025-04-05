@@ -6,11 +6,13 @@ import {CustomerDetailsComponent} from './customer/customer-details/customer-det
 import {LoginComponent} from './login/login.component';
 import {SigninComponent} from './signin/signin.component';
 import {ListuserComponent} from './listuser/listuser.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
 
 const routes: Routes = [
   // Alterar o redirecionamento para 'login' como a rota inicial
-  {path: '', pathMatch: 'full', redirectTo: '/welcome'},
+  {path: '', pathMatch: 'full', redirectTo: '/login'},
   {path: 'customer', component: CustomerComponent},
+  {path: 'dashboard', component: DashboardComponent},
   {path: 'login', component: LoginComponent},
   {path:'register' ,component:SigninComponent},
   {path:'users', component:ListuserComponent},
