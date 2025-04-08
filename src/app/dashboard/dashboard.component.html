@@ -33,7 +33,7 @@
 
   <div class="table-container">
     <div class="table-scroll">
-      <nz-table #nzTable [nzData]="listOfDisplayData" [nzScroll]="{ x: '1150px' }" nzTableLayout="fixed">
+      <nz-table #nzTable [nzData]="listOfDisplayData" [nzScroll]="{ x: '1100px' }" nzTableLayout="fixed">
         <thead>
         <tr>
           <th>Cliente</th>
@@ -83,7 +83,9 @@
   [nzWidth]="720"
   nzTitle="Novo Pagamento"
   [nzBodyStyle]="{ overflow: 'auto' }"
-  (nzOnClose)="closePaymentDrawer()">
+  (nzOnClose)="closePaymentDrawer()"
+[nzFooter]="nzPaymentDrawerFooter"
+>
 
   <form *nzDrawerContent [formGroup]="paymentForm" nz-form>
     <div nz-row [nzGutter]="16">
@@ -145,11 +147,15 @@
       </nz-form-control>
     </nz-form-item>
   </form>
-
-  <div *nzDrawerFooter>
+<ng-template  #nzPaymentDrawerFooter>
+  <div style="float: right">
     <button nz-button nzType="default" (click)="closePaymentDrawer()">Cancelar</button>
     <button nz-button nzType="primary" (click)="submitPayment()" [disabled]="paymentForm.invalid">Salvar</button>
   </div>
+
+</ng-template>
+
+
 </nz-drawer>
 
 <!-- Customer Drawer -->
@@ -158,7 +164,10 @@
   [nzWidth]="720"
   nzTitle="Novo Cliente"
   [nzBodyStyle]="{ overflow: 'auto' }"
-  (nzOnClose)="closeCustomerDrawer()">
+  (nzOnClose)="closeCustomerDrawer()"
+  [nzFooter]="nzCustomerDrawerFooter"
+>
+
 
   <form *nzDrawerContent [formGroup]="customerForm" nz-form>
     <div nz-row [nzGutter]="16">
@@ -240,9 +249,11 @@
       </nz-form-control>
     </nz-form-item>
   </form>
-
-  <div *nzDrawerFooter>
+<ng-template #nzCustomerDrawerFooter>
+  <div style="float: right">
     <button nz-button nzType="default" (click)="closeCustomerDrawer()">Cancelar</button>
     <button nz-button nzType="primary" (click)="submitCustomer()" [disabled]="customerForm.invalid">Salvar</button>
   </div>
+</ng-template>
+
 </nz-drawer>
