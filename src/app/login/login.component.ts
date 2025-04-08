@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Inject, Output, PLATFORM_ID} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Output, PLATFORM_ID} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {isPlatformBrowser} from '@angular/common';
+import {response} from 'express';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +11,13 @@ import {isPlatformBrowser} from '@angular/common';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
   @Output() loginSuccess = new EventEmitter<void>();
+
+  logout() {
+    localStorage.removeItem('token')
+  }
 
   userForm = new FormGroup({
     login: new FormControl('', Validators.required),
@@ -126,5 +131,9 @@ export class LoginComponent {
     } else {
       console.log('Form is invalid!');
     }
+  }
+
+  ngOnInit(): void {
+    this.logout()
   }
 }

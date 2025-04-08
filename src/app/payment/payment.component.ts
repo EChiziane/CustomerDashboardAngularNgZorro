@@ -100,6 +100,7 @@ export class PaymentComponent implements OnInit {
 
     this.paymentService.addPayment(this.paymentForm.value).subscribe({
       next: (newPayment) => {
+        console.log('Form Data:', this.paymentForm.value);
         console.log('Pagamento adicionado com sucesso:', newPayment);
         this.getPayments();
         this.dataSource = [...this.dataSource, newPayment];
