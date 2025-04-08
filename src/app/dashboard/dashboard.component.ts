@@ -141,4 +141,13 @@ export class DashboardComponent {
     this.searchValue = '';
     this.search();
   }
+
+  viewPayment(data: Payment) {}
+
+  printPayment(data: Payment) {
+    this.paymentService.getPaymentInvoice(data.id).subscribe((payment: Payment) => {
+      console.log(data.id);
+    });
+  }
+  deletePayment(data: Payment) {}
 }

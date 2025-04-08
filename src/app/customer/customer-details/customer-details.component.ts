@@ -31,7 +31,7 @@ export class CustomerDetailsComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.customerId = params['id'];
     });
-    this.getPayments();
+    this.getCustomerPayments();
     this.getCustomer();
   }
 
@@ -43,8 +43,8 @@ export class CustomerDetailsComponent implements OnInit {
 
   }
 
-  getPayments() {
-    this.paymentService.getPayments().subscribe((payments: Payment[]) => {
+  getCustomerPayments() {
+    this.paymentService.getCustomerPayments(this.customerId).subscribe((payments: Payment[]) => {
       this.paymentDataSource = payments;
       this.listOfDisplayData = [...this.paymentDataSource]; // Atualiza após receber os dados
     });
