@@ -41,6 +41,15 @@ import {ListuserComponent} from './listuser/listuser.component';
 import {SigninComponent} from './signin/signin.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {NzStatisticComponent} from 'ng-zorro-antd/statistic';
+import {PaymentDetailsComponent} from './payment/payment-details/payment-details.component';
+import {NzDescriptionsComponent, NzDescriptionsItemComponent} from 'ng-zorro-antd/descriptions';
+import {
+  NzPageHeaderComponent,
+  NzPageHeaderContentDirective,
+  NzPageHeaderExtraDirective,
+  NzPageHeaderSubtitleDirective, NzPageHeaderTitleDirective
+} from 'ng-zorro-antd/page-header';
+import {NzSpaceComponent, NzSpaceItemDirective} from 'ng-zorro-antd/space';
 
 registerLocaleData(en);
 
@@ -55,6 +64,7 @@ registerLocaleData(en);
   SigninComponent,
     ListuserComponent,
     DashboardComponent,
+    PaymentDetailsComponent
 
   ],
   imports: [
@@ -98,7 +108,16 @@ registerLocaleData(en);
     NzModalModule,
     NzAvatarModule,
     NzSwitchModule,
-    NzStatisticComponent
+    NzStatisticComponent,
+    NzDescriptionsItemComponent,
+    NzDescriptionsComponent,
+    NzPageHeaderContentDirective,
+    NzSpaceComponent,
+    NzPageHeaderExtraDirective,
+    NzPageHeaderSubtitleDirective,
+    NzPageHeaderTitleDirective,
+    NzPageHeaderComponent,
+    NzSpaceItemDirective
 
   ],
   providers: [

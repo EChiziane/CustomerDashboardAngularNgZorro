@@ -1,0 +1,56 @@
+<!-- 📄 A4 Page Wrapper -->
+<div class="a4-page">
+
+  <!-- 🔹 Header Section -->
+  <div class="section header-section">
+    <nz-page-header nzBackIcon [nzGhost]="false">
+      <nz-page-header-title>Recibo Para: {{ payment.customerName }}</nz-page-header-title>
+      <nz-page-header-extra>
+        <nz-space>
+          <button *nzSpaceItem nz-button (click)="print()">Imprimir</button>
+          <button *nzSpaceItem nz-button (click)="download()">Baixar</button>
+        </nz-space>
+      </nz-page-header-extra>
+    </nz-page-header>
+  </div>
+
+  <!-- 💳 Payment Description Section -->
+  <div class="section payment-description">
+    <nz-page-header-content>
+      <nz-descriptions nzSize="small" [nzColumn]="3">
+        <nz-descriptions-item nzTitle="Valor" [nzSpan]="1"><strong>{{ payment.amount | currency }}</strong></nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Data do Pagamento" [nzSpan]="1">{{ payment.paymentDate | date: 'dd/MM/yyyy' }}</nz-descriptions-item>
+      </nz-descriptions>
+
+      <nz-descriptions nzSize="small" [nzColumn]="3">
+        <nz-descriptions-item nzTitle="Método de Pagamento" [nzSpan]="1">{{ payment.paymentMethod }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Confirmado" [nzSpan]="1">{{ payment.confirmed ? 'Sim' : 'Não' }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Criado Por" [nzSpan]="1"><strong>Joel Garcias</strong></nz-descriptions-item>
+      </nz-descriptions>
+    </nz-page-header-content>
+  </div>
+
+  <!-- 🗓️ Meses de Pagamento Section -->
+  <div class="section payment-months">
+    <nz-page-header-content>
+      <nz-descriptions nzSize="small" [nzColumn]="1">
+        <nz-descriptions-item nzTitle="Pagamento de Água referente ao(s) mês(es)" [nzSpan]="1">
+          <ul>
+            <li *ngFor="let mes of meses"><strong>{{ mes }}</strong></li>
+          </ul>
+        </nz-descriptions-item>
+      </nz-descriptions>
+    </nz-page-header-content>
+  </div>
+
+  <!-- 🏢 Company Information Section -->
+  <div class="section company-info">
+    <nz-card style="width:100%;" nzTitle="Informações da Empresa">
+      <p><strong>Nome da Empresa:</strong> Transportes Chiziane</p>
+      <p><strong>Localização:</strong> Av. de Moçambique, nº 534, Marginal</p>
+      <p><strong>NUIT:</strong> 123456789</p>
+      <p><strong>Telefone:</strong> 845098583</p>
+    </nz-card>
+  </div>
+
+</div>
