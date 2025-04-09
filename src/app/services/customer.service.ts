@@ -31,5 +31,9 @@ export class CustomerService {
     return this.http.get<Customer>(`${this.baseURL}/${id}`);
   }
 
+  public updateCustomer(id: number, customer: any): Observable<Customer> {
+    return this.http.put<Customer>(`${this.baseURL}/${id}`, customer).pipe(take(1))
+  }
+
 
 }

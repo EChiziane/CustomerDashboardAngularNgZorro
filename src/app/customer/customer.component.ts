@@ -6,12 +6,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-customer',
-  standalone: false,
+  standalone:false,
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.scss']
 })
 export class CustomerComponent implements OnInit {
-  dataSource: Customer[] = []; // Inicializado como array vazio
+  dataSource: Customer[] = [];
   listOfDisplayData: Customer[] = [];
 
   totalCustomers = 0;
@@ -20,14 +20,19 @@ export class CustomerComponent implements OnInit {
 
   searchValue = '';
   visible = false;
-  visible1 = false; // Controla a visibilidade do modal
+  visible1 = false;
+
+  isEditMode = false;
+  drawerTitle = 'Criar Cliente';
+  selectedCustomerId: any | null = null;
+
   customerForm = new FormGroup({
     name: new FormControl('', Validators.required),
     contact: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
     address: new FormControl('', Validators.required),
     status: new FormControl('ATIVO', Validators.required),
     valve: new FormControl(10, [Validators.required, Validators.min(0)]),
-    monthsInDebt: new FormControl(1, [Validators.required, Validators.min(0)]),
+    monthsInDebt: new FormControl(1, [Validators.required, Validators.min(0)])
   });
 
   constructor(private http: HttpClient, private customerService: CustomerService) {}
@@ -39,15 +44,15 @@ export class CustomerComponent implements OnInit {
   getCustomers() {
     this.customerService.getCustomers().subscribe((customers: Customer[]) => {
       this.dataSource = customers;
-      this.listOfDisplayData = [...this.dataSource]; // Atualiza após receber os dados
+      this.listOfDisplayData = [...this.dataSource];
       this.calculateCustomerStats();
     });
   }
 
   calculateCustomerStats() {
     this.totalCustomers = this.dataSource.length;
-    this.activeCustomers = this.dataSource.filter(customer => customer.status === 'ATIVO').length;
-    this.inactiveCustomers = this.dataSource.filter(customer => customer.status === 'INATIVO').length;
+    this.activeCustomers = this.dataSource.filter(c => c.status === 'ATIVO').length;
+    this.inactiveCustomers = this.dataSource.filter(c => c.status === 'INATIVO').length;
   }
 
   reset(): void {
@@ -63,38 +68,73 @@ export class CustomerComponent implements OnInit {
   }
 
   open(): void {
+    this.isEditMode = false;
+    this.drawerTitle = 'Criar Cliente';
+    this.customerForm.reset({ status: 'ATIVO', valve: 10, monthsInDebt: 1 });
     this.visible1 = true;
   }
 
   close(): void {
     this.visible1 = false;
+    this.customerForm.reset();
+    this.selectedCustomerId = null;
   }
 
-  public createCustomer() {
+  createCustomer() {
     if (this.customerForm.invalid) {
-      console.error('Erro: O formulário contém campos inválidos.');
+      console.error('Formulário inválido.');
       return;
     }
 
-    this.customerService.addCustomer(this.customerForm.value).subscribe({
-      next: (newCustomer) => {
-        console.log('Cliente adicionado com sucesso:', newCustomer);
-        this.getCustomers();
-        this.dataSource = [...this.dataSource, newCustomer];
-        this.listOfDisplayData = [...this.dataSource]; // Atualiza a tabela
-        this.calculateCustomerStats(); // Atualiza os dados estatísticos
-        this.customerForm.reset({status: 'ATIVO', monthsInDebt: 1}); // Reseta o formulário
-        this.close(); // Fecha o modal
-      },
-      error: (err) => {
-        console.error('Erro ao adicionar cliente:', err);
-      },
+    if (this.isEditMode && this.selectedCustomerId) {
+      this.customerService.updateCustomer(this.selectedCustomerId, this.customerForm.value).subscribe({
+        next: (updatedCustomer) => {
+          console.log('Cliente atualizado com sucesso:', updatedCustomer);
+          this.getCustomers();
+          this.close();
+        },
+        error: (err) => {
+          console.error('Erro ao atualizar cliente:', err);
+        }
+      });
+    } else {
+      this.customerService.addCustomer(this.customerForm.value).subscribe({
+        next: (newCustomer) => {
+          console.log('Cliente criado com sucesso:', newCustomer);
+          this.dataSource = [...this.dataSource, newCustomer];
+          this.listOfDisplayData = [...this.dataSource];
+          this.calculateCustomerStats();
+          this.customerForm.reset({ status: 'ATIVO', valve: 10, monthsInDebt: 1 });
+          this.close();
+        },
+        error: (err) => {
+          console.error('Erro ao adicionar cliente:', err);
+        }
+      });
+    }
+  }
+
+  editCustomer(customer: Customer): void {
+    this.isEditMode = true;
+    this.drawerTitle = 'Editar Cliente';
+    this.selectedCustomerId = customer.id;
+    this.visible1 = true;
+
+    this.customerForm.patchValue({
+      name: customer.name,
+      contact: customer.contact,
+      address: customer.address,
+      status: customer.status,
+      valve: customer.valve,
+      monthsInDebt: customer.monthsInDebt
     });
   }
 
-  viewCustomer(data: Customer) {}
+  viewCustomer(data: Customer) {
+    console.log('Visualizar cliente:', data);
+  }
 
-  editCustomer(data: Customer) {}
-
-  deleteCustomer(data: Customer) {}
+  deleteCustomer(data: Customer) {
+    // Lógica de exclusão aqui
+  }
 }

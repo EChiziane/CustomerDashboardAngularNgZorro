@@ -54,7 +54,8 @@ registerLocaleData(en);
     MainLayoutComponent,
   SigninComponent,
     ListuserComponent,
-    DashboardComponent
+    DashboardComponent,
+
   ],
   imports: [
     BrowserModule,

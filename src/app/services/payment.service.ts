@@ -38,4 +38,6 @@ export class PaymentService {
   public getPaymentInvoice(id: string): Observable<Payment> {
     return this.http.get<Payment>(`${this.baseURL}/invoice/${id}`);
   }
+
+  
 }
