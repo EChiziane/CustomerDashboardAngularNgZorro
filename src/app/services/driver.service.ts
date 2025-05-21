@@ -23,10 +23,12 @@ export class DriverService {
   }
 
   public addDriver(driver: Driver): Observable<Driver> {
+    console.log(driver)
     return this.http.post<Driver>(this.baseURL, driver).pipe(take(1));
   }
 
   public deleteDriver(id: string): Observable<Driver> {
+    console.log(id)
     return this.http.delete<Driver>(`${this.baseURL}/${id}`);
   }
 }

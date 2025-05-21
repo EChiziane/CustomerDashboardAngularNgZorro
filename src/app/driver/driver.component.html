@@ -26,6 +26,7 @@
           <th>Telefone</th>
           <th>Descrição do Carro</th>
           <th>Status</th>
+          <th>Created At</th>
           <th>Ações</th>
         </tr>
         </thead>
@@ -34,15 +35,25 @@
           <td>{{ driver.Name }}</td>
           <td>{{ driver.Phone }}</td>
           <td>{{ driver.CarDescription }}</td>
+
           <td>
-            <nz-tag [nzColor]="driver.Status === 'ATIVO' ? 'green' : 'red'">
-              {{ driver.Status }}
+            <nz-tag [nzColor]="driver.status === 'ATIVO' ? 'green' : 'red'">
+              {{ driver.status }}
             </nz-tag>
           </td>
+          <td>{{ driver.createdAt | date: 'dd MM yyyy - HH:mm' }}</td>
           <td>
             <button (click)="deleteDriver(driver)" nz-button nzType="link" nzDanger>
               <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
             </button>
+
+            <button (click)="editDriver(driver)" nz-button nzType="link" nzSize="small">
+              <nz-icon nzType="edit" nzTheme="outline"></nz-icon>
+            </button>
+            <button (click)="deleteDriver(driver)" nz-button nzType="link" nzSize="small" nzDanger>
+              <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
+            </button>
+
           </td>
         </tr>
         </tbody>
@@ -86,8 +97,8 @@
       <nz-form-label nzRequired>Status</nz-form-label>
       <nz-form-control>
         <nz-select formControlName="status" nzPlaceHolder="Selecione o status">
-          <nz-option nzValue="ATIVO" nzLabel="ATIVO"></nz-option>
-          <nz-option nzValue="INATIVO" nzLabel="INATIVO"></nz-option>
+          <nz-option nzValue="ACTIVO" nzLabel="ACTIVO"></nz-option>
+          <nz-option nzValue="INACTIVO" nzLabel="INACTIVO"></nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>

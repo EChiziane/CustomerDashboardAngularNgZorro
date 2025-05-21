@@ -46,6 +46,7 @@ import {ManagerComponent} from './manager/manager.component';
 import {SprintComponent} from './sprint/sprint.component';
 import {DriverComponent} from './driver/driver.component';
 
+
 registerLocaleData(en);
 
 @NgModule({
