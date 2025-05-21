@@ -15,6 +15,8 @@ export class DriverComponent implements OnInit {
   totalDrivers = 0;
   totalActiveDrivers = 0;
   totalInactiveDrivers = 0;
+  currentEditingDriverId: string | null = null;
+  isEditMode: boolean = false; // ou true, dependendo do contexto
 
   isDriverDrawerVisible = false;
   searchValue = '';
@@ -40,23 +42,38 @@ export class DriverComponent implements OnInit {
     });
   }
 
+
+
   openDriverDrawer(): void {
     this.isDriverDrawerVisible = true;
-  }
-
-  closeDriverDrawer(): void {
-    this.isDriverDrawerVisible = false;
+    this.currentEditingDriverId = null; // Garante que seja criação
     this.driverForm.reset({ status: 'ACTIVO' });
   }
 
+
+
   submitDriver(): void {
     if (this.driverForm.valid) {
-      this.driverService.addDriver(this.driverForm.value).subscribe(() => {
-        this.loadDrivers();
+      const driverData = this.driverForm.value;
 
-        this.closeDriverDrawer();
-      });
+      if (this.currentEditingDriverId) {
+        // Editar motorista existente
+        this.driverService.updateDriver(this.currentEditingDriverId, driverData).subscribe(() => {
+          this.loadDrivers();
+          this.closeDriverDrawer();
+        });
+      } else {
+        // Criar novo motorista
+        this.driverService.addDriver(driverData).subscribe(() => {
+          this.loadDrivers();
+          this.closeDriverDrawer();
+        });
+      }
     }
+  }
+
+  get driverDrawerTitle(): string {
+    return this.currentEditingDriverId ? 'Edição de Motorista' : 'Criação de Motorista';
   }
 
   deleteDriver(driver: Driver): void {
@@ -87,7 +104,25 @@ export class DriverComponent implements OnInit {
     });
   }
 
-  editDriver(driver: Driver) {
+  editDriver(driver: Driver): void {
+    this.currentEditingDriverId = driver.id;
 
+    this.driverForm.patchValue({
+      name: driver.Name,
+      phone: driver.Phone,
+      carDescription: driver.CarDescription,
+      status: driver.status
+    });
+
+    this.isDriverDrawerVisible = true;
   }
+
+
+  closeDriverDrawer(): void {
+    this.isDriverDrawerVisible = false;
+    this.driverForm.reset({ status: 'ACTIVO' });
+    this.currentEditingDriverId = null;
+  }
+
+
 }

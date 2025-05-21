@@ -77,7 +77,7 @@
 <nz-drawer
   [nzVisible]="isDriverDrawerVisible"
   [nzWidth]="480"
-  nzTitle="Novo Motorista"
+  [nzTitle]="driverDrawerTitle"
   [nzBodyStyle]="{ overflow: 'auto' }"
   (nzOnClose)="closeDriverDrawer()"
   [nzFooter]="nzDriverDrawerFooter"

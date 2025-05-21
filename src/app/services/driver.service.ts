@@ -1,15 +1,13 @@
-
-import { HttpClient } from '@angular/common/http';
-import { Observable, take } from 'rxjs';
-import { environment } from '../../environments/environments';
-import { Driver } from '../models/driver';
 import {Injectable} from '@angular/core';
+import {environment} from '../../environments/environments';
+import {HttpClient} from '@angular/common/http';
+import {Observable, take} from 'rxjs';
+import {Driver} from '../models/driver';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DriverService {
-
   private baseURL = environment.baseURL + "/drivers";
 
   constructor(private http: HttpClient) { }
@@ -23,12 +21,14 @@ export class DriverService {
   }
 
   public addDriver(driver: Driver): Observable<Driver> {
-    console.log(driver)
     return this.http.post<Driver>(this.baseURL, driver).pipe(take(1));
   }
 
   public deleteDriver(id: string): Observable<Driver> {
-    console.log(id)
     return this.http.delete<Driver>(`${this.baseURL}/${id}`);
+  }
+
+  public updateDriver(id: string, driver: Driver): Observable<Driver> {
+    return this.http.put<Driver>(`${this.baseURL}/${id}`, driver).pipe(take(1));
   }
 }
