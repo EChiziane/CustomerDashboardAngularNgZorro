@@ -41,6 +41,10 @@ import {ListuserComponent} from './listuser/listuser.component';
 import {SigninComponent} from './signin/signin.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {NzStatisticComponent} from 'ng-zorro-antd/statistic';
+import {CarloadComponent} from './carload/carload.component';
+import {ManagerComponent} from './manager/manager.component';
+import {SprintComponent} from './sprint/sprint.component';
+import {DriverComponent} from './driver/driver.component';
 
 registerLocaleData(en);
 
@@ -54,7 +58,11 @@ registerLocaleData(en);
     MainLayoutComponent,
   SigninComponent,
     ListuserComponent,
-    DashboardComponent
+    DashboardComponent,
+    CarloadComponent,
+    ManagerComponent,
+    SprintComponent,
+    DriverComponent
   ],
   imports: [
     BrowserModule,

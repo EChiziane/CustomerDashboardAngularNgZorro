@@ -7,17 +7,25 @@ import {LoginComponent} from './login/login.component';
 import {SigninComponent} from './signin/signin.component';
 import {ListuserComponent} from './listuser/listuser.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {CarloadComponent} from './carload/carload.component';
+import {ManagerComponent} from './manager/manager.component';
+import {SprintComponent} from './sprint/sprint.component';
+import {DriverComponent} from './driver/driver.component';
 
 const routes: Routes = [
   // Alterar o redirecionamento para 'login' como a rota inicial
   {path: '', pathMatch: 'full', redirectTo: '/login'},
   {path: 'customer', component: CustomerComponent},
+  {path: 'carload', component: CarloadComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'login', component: LoginComponent},
   {path:'register' ,component:SigninComponent},
   {path:'users', component:ListuserComponent},
   {path: 'customer-detail/:id', component: CustomerDetailsComponent},
   {path: 'payment', component: PaymentComponent},
+  {path: 'manager', component: ManagerComponent},
+  {path: 'sprint', component: SprintComponent},
+  {path: 'driver', component: DriverComponent},
   {path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)}
 ];
 

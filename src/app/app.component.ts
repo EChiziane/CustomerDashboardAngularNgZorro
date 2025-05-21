@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
 
   isAuthenticated(): boolean {
     var str = localStorage.getItem('token');
-    console.log(str)
+//console.log(str)
     if (str == null) {
       return false;
     }
