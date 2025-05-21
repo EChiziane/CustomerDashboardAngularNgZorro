@@ -3,6 +3,7 @@ import { Driver } from '../models/driver';
 import { DriverService } from '../services/driver.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {NzModalService} from 'ng-zorro-antd/modal';
+import {NzMessageService} from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-driver',
@@ -24,7 +25,8 @@ export class DriverComponent implements OnInit {
 
   constructor(private driverService: DriverService,
               private fb: FormBuilder,
-              private modal: NzModalService) {
+              private modal: NzModalService,
+              private message: NzMessageService) {
     this.initForm();
   }
 
@@ -58,19 +60,32 @@ export class DriverComponent implements OnInit {
 
       if (this.currentEditingDriverId) {
         // Editar motorista existente
-        this.driverService.updateDriver(this.currentEditingDriverId, driverData).subscribe(() => {
-          this.loadDrivers();
-          this.closeDriverDrawer();
+        this.driverService.updateDriver(this.currentEditingDriverId, driverData).subscribe({
+          next: () => {
+            this.loadDrivers();
+            this.closeDriverDrawer();
+            this.message.success('Motorista atualizado com sucesso! ✅');
+          },
+          error: () => {
+            this.message.error('Erro ao atualizar motorista. 🚫');
+          }
         });
       } else {
         // Criar novo motorista
-        this.driverService.addDriver(driverData).subscribe(() => {
-          this.loadDrivers();
-          this.closeDriverDrawer();
+        this.driverService.addDriver(driverData).subscribe({
+          next: () => {
+            this.loadDrivers();
+            this.closeDriverDrawer();
+            this.message.success('Motorista criado com sucesso! ✅');
+          },
+          error: () => {
+            this.message.error('Erro ao criar motorista. 🚫');
+          }
         });
       }
     }
   }
+
 
   get driverDrawerTitle(): string {
     return this.currentEditingDriverId ? 'Edição de Motorista' : 'Criação de Motorista';
@@ -84,11 +99,18 @@ export class DriverComponent implements OnInit {
       nzOkType: 'primary',
       nzCancelText: 'Não',
       nzOnOk: () =>
-        this.driverService.deleteDriver(driver.id).subscribe(() => {
-          this.loadDrivers();
+        this.driverService.deleteDriver(driver.id).subscribe({
+          next: () => {
+            this.loadDrivers();
+            this.message.success('Motorista eliminado com sucesso! 🗑️');
+          },
+          error: () => {
+            this.message.error('Erro ao eliminar motorista. 🚫');
+          }
         })
     });
   }
+
 
 
   search(): void {
