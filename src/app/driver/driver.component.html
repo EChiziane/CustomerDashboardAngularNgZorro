@@ -10,7 +10,18 @@
             <p>{{ totalDrivers | number }}</p>
           </nz-card>
         </div>
+        <div [nzSpan]="8" nz-col>
+          <nz-card nzTitle="Motoristas Ativos">
+            <p>{{ totalActiveDrivers | number }}</p>
+          </nz-card>
+        </div>
+        <div [nzSpan]="8" nz-col>
+          <nz-card nzTitle="Motoristas Inativos">
+            <p>{{ totalInactiveDrivers | number }}</p>
+          </nz-card>
+        </div>
       </div>
+
     </div>
   </div>
   <div class="filter">

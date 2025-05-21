@@ -13,6 +13,9 @@ import {NzModalService} from 'ng-zorro-antd/modal';
 export class DriverComponent implements OnInit {
   listOfDisplayData: Driver[] = [];
   totalDrivers = 0;
+  totalActiveDrivers = 0;
+  totalInactiveDrivers = 0;
+
   isDriverDrawerVisible = false;
   searchValue = '';
   driverForm!: FormGroup;
@@ -32,6 +35,8 @@ export class DriverComponent implements OnInit {
     this.driverService.getDrivers().subscribe(drivers => {
       this.listOfDisplayData = drivers;
       this.totalDrivers = drivers.length;
+      this.totalActiveDrivers = drivers.filter(d => d.status === 'ACTIVO').length;
+      this.totalInactiveDrivers = drivers.filter(d => d.status === 'INACTIVO').length;
     });
   }
 
