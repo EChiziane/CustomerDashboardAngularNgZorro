@@ -1,0 +1,221 @@
+<div class="main-content">
+  <div class="header">
+    <p>Lista de Carloads</p>
+  </div>
+  <div class="dash">
+
+    <div style="background: #ECECEC; padding:30px;">
+      <div [nzGutter]="8" nz-row>
+        <div [nzSpan]="8" nz-col>
+          <nz-card nzTitle="Total Carloads">
+            <p>{{ totalCarloads | number }}</p>
+          </nz-card>
+        </div>
+        <div [nzSpan]="8" nz-col>
+          <nz-card nzTitle="Confirmed">
+            <p>{{ totalCarloads | currency:'CNY':'symbol':'1.2-2' }}</p>
+          </nz-card>
+        </div>
+        <div [nzSpan]="8" nz-col>
+          <nz-card nzTitle="UnConfirmed">
+            <p>{{ totalCarloads | number }}</p>
+          </nz-card>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="filter">
+
+    <input [(ngModel)]="searchValue" (ngModelChange)="search()" nz-input placeholder="Search..." type="text"/>
+    <button (click)="openCarloadDrawer()" nz-button nzType="primary">Novo Carload</button>
+  </div>
+  <div class="table-container">
+
+    <div class="table-scroll">
+      <nz-table #nzTable [nzData]="listOfDisplayData" [nzScroll]="{ x: '1150px', y: '280px' }" nzTableLayout="fixed">
+        <thead>
+        <tr>
+          <th>Destino</th>
+          <th>Cliente</th>
+          <th>Telefone</th>
+          <th>Gerente</th>
+          <th>Motorista</th>
+          <th>Material</th>
+          <th>Lote</th>
+          <th>Gasto Total</th>
+          <th>Ganhos</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr *ngFor="let carload of listOfDisplayData">
+          <td>{{ carload.deliveryDestination }}</td>
+          <td>{{ carload.customerName }}</td>
+          <td>{{ carload.customerPhoneNumber }}</td>
+          <td>{{ carload.logisticsManagerName }}</td>
+          <td>{{ carload.assignedDriverName }}</td>
+          <td>{{ carload.transportedMaterial }}</td>
+          <td>{{ carload.carloadBatchName }}</td>
+          <td>{{ carload.totalSpent | currency:'MZN':'symbol':'1.2-2' }}</td>
+          <td>{{ carload.totalEarnings | currency:'MZN':'symbol':'1.2-2' }}</td>
+
+          <td>
+            <nz-tag [nzColor]="carload.deliveryStatus === 'Entregue' ? 'green' : 'orange'">
+              {{ carload.deliveryStatus }}
+            </nz-tag>
+          </td>
+          <td>
+            <button (click)="viewCarload(carload)" [routerLink]="['/carload-detail', carload.id]" nz-button nzType="link" nzSize="small">
+              <nz-icon nzType="eye" nzTheme="outline"></nz-icon>
+            </button>
+            <button (click)="printCarload(carload)" nz-button nzType="link" nzSize="small">
+              <nz-icon nzType="printer" nzTheme="outline"></nz-icon>
+            </button>
+            <button (click)="deleteCarload(carload)" nz-button nzType="link" nzSize="small" nzDanger>
+              <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
+            </button>
+          </td>
+        </tr>
+
+        </tbody>
+      </nz-table>
+    </div>
+
+
+  </div>
+</div>
+
+<!-- Carload Drawer -->
+<nz-drawer
+  [nzVisible]="isCarloadDrawerVisible"
+  [nzWidth]="720"
+  nzTitle="Novo Carload"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  (nzOnClose)="closeCarloadDrawer()"
+  [nzFooter]="nzCarloadDrawerFooter"
+>
+
+
+  <form *nzDrawerContent [formGroup]="carloadForm" nz-form>
+    <div nz-row [nzGutter]="16">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Destino de Entrega</nz-form-label>
+          <nz-form-control>
+            <input formControlName="deliveryDestination" nz-input placeholder="Destino de entrega">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Nome do Cliente</nz-form-label>
+          <nz-form-control>
+            <input formControlName="customerName" nz-input placeholder="Nome do cliente">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="16">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Nome do Gestor Logístico</nz-form-label>
+          <nz-form-control>
+            <input formControlName="logisticsManagerName" nz-input placeholder="Nome do gestor logístico">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Motorista Atribuído</nz-form-label>
+          <nz-form-control>
+            <input formControlName="assignedDriverName" nz-input placeholder="Nome do motorista">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="16">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Material Transportado</nz-form-label>
+          <nz-form-control>
+            <input formControlName="transportedMaterial" nz-input placeholder="Material transportado">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Nome do Lote</nz-form-label>
+          <nz-form-control>
+            <input formControlName="carloadBatchName" nz-input placeholder="Nome do lote">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="16">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Telefone do Cliente</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzAddOnBefore="+258">
+              <input formControlName="customerPhoneNumber" nz-input placeholder="Número de telefone">
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Total Gasto</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzAddOnBefore="MZN">
+              <input formControlName="totalSpent" nz-input type="number" placeholder="Total gasto">
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row [nzGutter]="16">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Rendimento Total</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzAddOnBefore="MZN">
+              <input formControlName="totalEarnings" nz-input type="number" placeholder="Total ganho">
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Status da Entrega</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="deliveryStatus" nzPlaceHolder="Selecione o status">
+              <nz-option nzValue="PENDENTE" nzLabel="Pendente"></nz-option>
+              <nz-option nzValue="ENTREGUE" nzLabel="Entregue"></nz-option>
+              <nz-option nzValue="CANCELADA" nzLabel="Cancelada"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+
+  <ng-template #nzCarloadDrawerFooter>
+    <div style="float: right">
+      <button nz-button nzType="default" (click)="closeCarloadDrawer()">Cancelar</button>
+      <button nz-button nzType="primary" (click)="submitCarload()" [disabled]="carloadForm.invalid">Salvar</button>
+    </div>
+  </ng-template>
+
+</nz-drawer>

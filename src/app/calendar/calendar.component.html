@@ -1,0 +1,21 @@
+<div class="card">
+  <nz-calendar
+    [nzFullscreen]="false"
+    (nzSelectChange)="onValueChange($event)"
+    (nzPanelChange)="onPanelChange($event)"
+  ></nz-calendar>
+</div>
+
+
+<!-- Select de meses -->
+<nz-select [(ngModel)]="selectedMonth" placeholder="Selecione um mês">
+  <nz-option *ngFor="let month of months; let i = index" [nzValue]="i" [nzLabel]="month"></nz-option>
+</nz-select>
+
+<!-- Select de tipos de turno/dia -->
+<nz-select [(ngModel)]="selectedDayType" placeholder="Selecione o tipo de dia">
+  <nz-option nzValue="folga1" nzLabel="Dia 1 - Folga"></nz-option>
+  <nz-option nzValue="folga2" nzLabel="Dia 2 - Folga"></nz-option>
+  <nz-option nzValue="trabalhoDia" nzLabel="Trabalhando (Dia)"></nz-option>
+  <nz-option nzValue="trabalhoNoite" nzLabel="Trabalhando (Noite)"></nz-option>
+</nz-select>
