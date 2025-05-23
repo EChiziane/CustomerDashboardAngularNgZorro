@@ -103,10 +103,17 @@
       </nz-form-control>
     </nz-form-item>
 
+
+
     <nz-form-item>
-      <nz-form-label nzRequired>Descrição do Carro</nz-form-label>
+      <nz-form-label nzRequired>Descricao do carros</nz-form-label>
       <nz-form-control>
-        <input formControlName="carDescription" nz-input placeholder="Descrição do carro">
+        <nz-select formControlName="carDescription" nzPlaceHolder="Selecione a Descrição do carro">
+          <nz-option nzValue="7m3-HINO RANGER" nzLabel="7m3-HINO RANGER"></nz-option>
+          <nz-option nzValue="18m3-TATA AMARELO" nzLabel="18m3-TATA AMARELO"></nz-option>
+          <nz-option nzValue="20m3-TATA AZUL" nzLabel="20m3-TATA AZUL"></nz-option>
+          <nz-option nzValue="22m3-SINOTRUCK" nzLabel="22m3-SINOTRUCK"></nz-option>
+        </nz-select>
       </nz-form-control>
     </nz-form-item>
 
