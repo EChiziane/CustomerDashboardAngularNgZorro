@@ -17,7 +17,7 @@ export class DriverComponent implements OnInit {
   totalActiveDrivers = 0;
   totalInactiveDrivers = 0;
   currentEditingDriverId: string | null = null;
-  isEditMode: boolean = false; // ou true, dependendo do contexto
+
 
   isDriverDrawerVisible = false;
   searchValue = '';

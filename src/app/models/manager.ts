@@ -4,4 +4,5 @@ export interface Manager {
   contact: string;
   address: string;
   status: string;
+  createdAt: string;   // Data de criação do usuário (em formato ISO 8601)
 }

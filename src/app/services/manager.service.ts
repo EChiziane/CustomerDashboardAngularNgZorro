@@ -25,7 +25,10 @@ export class ManagerService {
     return this.http.post<Manager>(this.baseURL, manager).pipe(take(1));
   }
 
-  public deleteManager(id:any): Observable<void> {
-    return this.http.delete<void>(`${this.baseURL}/${id}`);
+  public deleteManager(id:string): Observable<Manager> {
+    return this.http.delete<Manager>(`${this.baseURL}/${id}`);
+  }
+  public updateManager(id: string, manager: Manager): Observable<Manager> {
+    return this.http.put<Manager>(`${this.baseURL}/${id}`, manager).pipe(take(1));
   }
 }

@@ -10,6 +10,16 @@
             <p>{{ totalSprints | number }}</p>
           </nz-card>
         </div>
+        <div [nzSpan]="8" nz-col>
+          <nz-card nzTitle="Sprints Ativos">
+            <p>{{ totalActiveSprints | number }}</p>
+          </nz-card>
+        </div>
+        <div [nzSpan]="8" nz-col>
+          <nz-card nzTitle="Sprints Inativos">
+            <p>{{ totalInactiveSprints | number }}</p>
+          </nz-card>
+        </div>
       </div>
     </div>
   </div>
@@ -21,23 +31,31 @@
 
   <div class="table-container">
     <div class="table-scroll">
-      <nz-table
+      <nz-table #nzTable
         [nzData]="listOfDisplayData"
-        [nzFrontPagination]="false"
-        [nzScroll]="{ y: '280px' }"
+        [nzScroll]="{ x: '800px', y: '280px'}"
         nzTableLayout="fixed"
       >
         <thead>
         <tr>
+          <th>Nome</th>
           <th>Código</th>
           <th>Descrição</th>
+          <th>Status</th>
+          <th>Created At</th>
           <th>Ações</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let sprint of listOfDisplayData">
+          <td>{{ sprint.name }}</td>
           <td>{{ sprint.code }}</td>
-          <td>{{ sprint.descricao }}</td>
+          <td>{{ sprint.description }}</td>
+          <td>
+            <nz-tag [nzColor]="sprint.status === 'ACTIVO' ? 'green' : 'red'">
+            {{ sprint.status }}
+          </nz-tag></td>
+          <td>{{ sprint.createdAt | date: 'dd MM yyyy - HH:mm' }}</td>
           <td>
             <button
               (click)="deleteSprint(sprint)"
@@ -49,6 +67,12 @@
             >
               <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
             </button>
+
+
+            <button (click)="editSprint(sprint)" nz-button nzType="link" nzSize="small">
+              <nz-icon nzType="edit" nzTheme="outline"></nz-icon>
+            </button>
+
           </td>
         </tr>
         </tbody>
@@ -61,7 +85,8 @@
 <nz-drawer
   [nzVisible]="isSprintDrawerVisible"
   [nzWidth]="480"
-  nzTitle="Novo Sprint"
+ [nzTitle]="driverDrawerTitle"
+  [nzBodyStyle]="{ overflow: 'auto' }"
   (nzOnClose)="closeSprintDrawer()"
   [nzFooter]="nzSprintDrawerFooter"
 >
@@ -74,9 +99,25 @@
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label nzFor="descricao" nzRequired>Descrição</nz-form-label>
+      <nz-form-label nzFor="name" nzRequired>Name</nz-form-label>
       <nz-form-control>
-        <input formControlName="descricao" nz-input id="descricao" placeholder="Descrição do sprint" />
+        <input formControlName="name" nz-input id="name" placeholder="Nome do sprint" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="description" nzRequired>Descrição</nz-form-label>
+      <nz-form-control>
+        <input formControlName="description" nz-input id="description" placeholder="Descrição do sprint" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired>Status</nz-form-label>
+      <nz-form-control>
+        <nz-select formControlName="status" nzPlaceHolder="Selecione o status">
+          <nz-option nzValue="ACTIVO" nzLabel="ACTIVO"></nz-option>
+          <nz-option nzValue="INACTIVO" nzLabel="INACTIVO"></nz-option>
+        </nz-select>
       </nz-form-control>
     </nz-form-item>
   </form>
