@@ -1,28 +1,28 @@
-import { Component } from '@angular/core';
-import {CarLoad} from '../models/carlaod';
-import {CarloadService} from '../services/carload.service';
+import {Component, Input} from '@angular/core';
+import {CarLoad} from '../../models/carlaod';
+import {Driver} from '../../models/driver';
+import {Manager} from '../../models/manager';
+import {Sprint} from '../../models/sprint';
+import {CarloadService} from '../../services/carload.service';
+import {DriverService} from '../../services/driver.service';
+import {ManagerService} from '../../services/manager.service';
+import {SprintService} from '../../services/sprint.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Customer} from '../models/customer';
-import {Driver} from '../models/driver';
-import {DriverService} from '../services/driver.service';
-import {Manager} from '../models/manager';
-import {ManagerService} from '../services/manager.service';
-import {Sprint} from '../models/sprint';
-import {SprintService} from '../services/sprint.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'app-carload',
+  selector: 'app-sprint-details',
   standalone: false,
-  templateUrl: './carload.component.html',
-  styleUrl: './carload.component.scss'
+  templateUrl: './sprint-details.component.html',
+  styleUrl: './sprint-details.component.scss'
 })
-export class CarloadComponent {
+export class SprintDetailsComponent {
   listOfDisplayData: CarLoad[]=[];
   dataDrivers: Driver[]=[];
   dataManagers: Manager[]=[];
   dataSprint:Sprint[]=[];
   totalCarloads=0;
-
+  @Input() sprintId!: string;
 
   private loadData(): void {
     this.loadCarloads();
@@ -31,20 +31,31 @@ export class CarloadComponent {
     this.getSprinters()
   }
   ngOnInit(): void {
+
+    this.route.params.subscribe(params => {
+      this.sprintId = params['id'];
+    })
+
     this.loadData();
+
+
   }
 
   constructor(private carloadService: CarloadService,
               private driverService: DriverService,
+              private route: ActivatedRoute,
               private managerService: ManagerService,
               private sprintService: SprintService,
               private fb: FormBuilder) {
+
     this.initForms();
   }
 
 
   private loadCarloads(): void {
-    this.carloadService.getCarloads().subscribe(carloads => {
+
+    this.carloadService.getCarloadsBySprint(this.sprintId).subscribe(carloads => {
+
       this.listOfDisplayData = carloads;
       this.totalCarloads = carloads.length;
 
@@ -98,7 +109,7 @@ export class CarloadComponent {
   deleteCarload(carload: CarLoad) {
     // lógica para excluir
   }
- carloadForm!: FormGroup;
+  carloadForm!: FormGroup;
 
   closeCarloadDrawer(): void {
     this.isCarloadDrawerVisible = false;

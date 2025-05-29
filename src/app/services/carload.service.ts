@@ -18,6 +18,10 @@ export class CarloadService {
     return this.http.get<CarLoad[]>(this.baseURL);
   }
 
+  public getCarloadsBySprint(id: any): Observable<CarLoad[]> {
+    return this.http.get<CarLoad[]>(`${this.baseURL}/sprint/${id}`);
+  }
+
   public getCarloadById(id: number): Observable<CarLoad> {
     return this.http.get<CarLoad>(`${this.baseURL}/${id}`);
   }

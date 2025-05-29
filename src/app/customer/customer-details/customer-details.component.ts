@@ -31,6 +31,8 @@ export class CustomerDetailsComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.customerId = params['id'];
     });
+
+
     this.getCustomerPayments();
     this.getCustomer();
   }

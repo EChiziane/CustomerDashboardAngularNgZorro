@@ -158,4 +158,8 @@ get driverDrawerTitle(): string {
       status: ['ACTIVO', Validators.required],
     });
   }
+
+  viewSprint(sprint: Sprint) {
+
+  }
 }

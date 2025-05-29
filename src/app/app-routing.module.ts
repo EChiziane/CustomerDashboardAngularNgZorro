@@ -11,6 +11,7 @@ import {CarloadComponent} from './carload/carload.component';
 import {ManagerComponent} from './manager/manager.component';
 import {SprintComponent} from './sprint/sprint.component';
 import {DriverComponent} from './driver/driver.component';
+import {SprintDetailsComponent} from './sprint/sprint-details/sprint-details.component';
 
 const routes: Routes = [
   // Alterar o redirecionamento para 'login' como a rota inicial
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'payment', component: PaymentComponent},
   {path: 'manager', component: ManagerComponent},
   {path: 'sprint', component: SprintComponent},
+  {path: 'sprint-detail/:id', component: SprintDetailsComponent},
   {path: 'driver', component: DriverComponent},
   {path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)}
 ];
