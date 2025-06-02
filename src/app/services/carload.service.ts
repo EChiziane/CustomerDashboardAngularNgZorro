@@ -30,6 +30,11 @@ export class CarloadService {
     return this.http.post<CarLoad>(this.baseURL, carload).pipe(take(1));
   }
 
+
+  public  updateCarload(id:string, carload:CarLoad):Observable<CarLoad> {
+    return this.http.put<CarLoad>(`${this.baseURL}/${id}`,carload).pipe(take(1));
+  }
+
   public deleteCarload(id: number): Observable<CarLoad> {
     return this.http.delete<CarLoad>(`${this.baseURL}/${id}`);
   }
