@@ -1,15 +1,15 @@
 <div class="main-content">
 
   <div class="header">
-    <p> Lista dos Usuários</p>
+    <p>Lista de Usuários</p>
   </div>
 
   <div class="filter">
-    <input (ngModelChange)="search()" [(ngModel)]="searchValue" nz-input placeholder="Search..." type="text"/>
-    <button (click)="openUserDrawer()" nz-button nzType="primary">Novo User</button>
+    <input (ngModelChange)="search()" [(ngModel)]="searchValue" nz-input placeholder="Pesquisar..." type="text"/>
+    <button (click)="openUserDrawer()" nz-button nzType="primary">Novo Usuário</button>
   </div>
-  <div class="table-container">
 
+  <div class="table-container">
     <div class="table-scroll">
       <nz-table #nzTable
                 [nzData]="listOfDisplayData"
@@ -18,33 +18,30 @@
 
         <thead>
         <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>login</th>
-          <th>Role</th>
-          <th>Phone</th>
-          <th>Status</th>
-          <th>Created At</th>
-          <th>Actions</th>
-
+          <th nzWidth="120px">Nome</th>
+          <th nzWidth="240px">Email</th> <!-- Mais largo -->
+          <th nzWidth="120px">Login</th>
+          <th nzWidth="100px">Função</th> <!-- Mais estreito -->
+          <th nzWidth="130px">Telefone</th>
+          <th nzWidth="100px">Estado</th> <!-- Mais estreito -->
+          <th nzWidth="180px">Data de Criação</th>
+          <th nzWidth="120px">Ações</th>
         </tr>
-
         </thead>
+
         <tbody>
         <tr *ngFor="let data of nzTable.data;">
           <td>{{ data.name }}</td>
           <td>{{ data.email }}</td>
-          <td>{{data.login}}</td>
+          <td>{{ data.login }}</td>
           <td>{{ data.role }}</td>
           <td>{{ data.phone }}</td>
           <nz-tag [nzColor]="data.status === 'ACTIVE' ? 'green' : 'red'">
             <td>{{ data.status }}</td>
           </nz-tag>
-
           <td>{{ data.createdAt | date: 'dd MM yyyy - HH:mm' }}</td>
           <td>
-            <button (click)="viewUser(data)" [routerLink]="['/user-detail',data ]" nz-button nzSize="small"
-                    nzType="link">
+            <button (click)="viewUser(data)" [routerLink]="['/user-detail',data ]" nz-button nzSize="small" nzType="link">
               <nz-icon nzTheme="outline" nzType="eye"></nz-icon>
             </button>
             <button (click)="editUser(data)" nz-button nzSize="small" nzType="link">
@@ -55,18 +52,11 @@
             </button>
           </td>
         </tr>
-
         </tbody>
 
-
       </nz-table>
-
     </div>
-
-
   </div>
-
-
 </div>
 
 <nz-drawer
@@ -81,38 +71,38 @@
 
     <div class="avatar-pace">
       <nz-avatar class="avatar" nzIcon="user" nzSize="large"></nz-avatar>
-      <p>Registrar User</p>
+      <p>Registrar Usuário</p>
     </div>
+
     <nz-form-item>
       <nz-form-label nzFor="name" nzRequired>Nome</nz-form-label>
       <nz-form-control>
-        <input formControlName="name" id="name" nz-input placeholder="Nome do User"/>
+        <input formControlName="name" id="name" nz-input placeholder="Nome do usuário"/>
       </nz-form-control>
     </nz-form-item>
+
     <nz-form-item>
       <nz-form-label nzFor="email" nzRequired>Email</nz-form-label>
       <nz-form-control>
-        <input formControlName="email" id="email" nz-input placeholder="Email do user" type="email"/>
+        <input formControlName="email" id="email" nz-input placeholder="Email do usuário" type="email"/>
       </nz-form-control>
     </nz-form-item>
 
-
     <nz-form-item *ngIf="currentEditingUserId">
-      <nz-form-label nzRequired >Status</nz-form-label>
+      <nz-form-label nzRequired>Estado</nz-form-label>
       <nz-form-control>
-        <nz-select formControlName="status" >
-          <nz-option nzLabel="ACTIVE" nzValue="ACTIVE"></nz-option>
-          <nz-option nzLabel="INACTIVE" nzValue="INACTIVE"></nz-option>
-          <nz-option nzLabel="CREATED" nzValue="CREATED"></nz-option>
+        <nz-select formControlName="status">
+          <nz-option nzLabel="Ativo" nzValue="ACTIVE"></nz-option>
+          <nz-option nzLabel="Inativo" nzValue="INACTIVE"></nz-option>
+          <nz-option nzLabel="Criado" nzValue="CREATED"></nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>
 
-
     <nz-form-item *ngIf="!currentEditingUserId">
       <nz-form-label nzFor="password" nzRequired>Senha</nz-form-label>
       <nz-form-control>
-        <input formControlName="password" id="password" nz-input placeholder="Senha do user" type="password"/>
+        <input formControlName="password" id="password" nz-input placeholder="Senha do usuário" type="password"/>
       </nz-form-control>
     </nz-form-item>
 
@@ -121,38 +111,29 @@
         <nz-form-item>
           <nz-form-label nzFor="phone" nzRequired>Telefone</nz-form-label>
           <nz-form-control>
-            <input formControlName="phone" id="phone" nz-input placeholder="Telephone do user"/>
+            <input formControlName="phone" id="phone" nz-input placeholder="Telefone do usuário"/>
           </nz-form-control>
         </nz-form-item>
       </div>
 
       <div nz-col nzSpan="12">
         <nz-form-item>
-          <nz-form-label nzFor="role" nzRequired>Role</nz-form-label>
+          <nz-form-label nzFor="role" nzRequired>Função</nz-form-label>
           <nz-form-control>
             <nz-select formControlName="role" id="role">
-              <nz-option nzLabel="USER" nzValue="USER"></nz-option>
-              <nz-option nzLabel="ADMIN" nzValue="ADMIN"></nz-option>
+              <nz-option nzLabel="Usuário" nzValue="USER"></nz-option>
+              <nz-option nzLabel="Administrador" nzValue="ADMIN"></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
       </div>
-
     </div>
 
-
-
-
-    <!--  <nz-form-item>
-        <nz-form-control >
-          <button nz-button nzType="primary" [disabled]="userForm.invalid">Registrar</button>
-        </nz-form-control>
-      </nz-form-item>-->
   </form>
+
   <ng-template #nzUserDrawerFooter>
     <button (click)="closeUserDrawer()" nz-button>Cancelar</button>
-    <button (click)="submitUser()" [disabled]="!userForm.valid" nz-button nzType="primary">Save</button>
-
+    <button (click)="submitUser()" [disabled]="!userForm.valid" nz-button nzType="primary">Salvar</button>
   </ng-template>
 
 </nz-drawer>

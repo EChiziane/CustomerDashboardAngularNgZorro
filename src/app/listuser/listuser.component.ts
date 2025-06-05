@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
-import {User} from '../models/user';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
-import {AuthService} from '../services/auth.service';
-import {NzMessageService} from 'ng-zorro-antd/message';
-import {NzModalService} from 'ng-zorro-antd/modal';
+import { Component } from '@angular/core';
+import { User } from '../models/user';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../services/auth.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-listuser',
@@ -27,16 +27,18 @@ export class ListuserComponent {
   currentEditingUserId: string | null = null;
   isUserDrawerVisible = false;
 
-  constructor(private http: HttpClient,
-              private message: NzMessageService
-    , private userService: AuthService,
-              private modal: NzModalService,
-              private fb: FormBuilder,) {
+  constructor(
+    private http: HttpClient,
+    private message: NzMessageService,
+    private userService: AuthService,
+    private modal: NzModalService,
+    private fb: FormBuilder
+  ) {
     this.initForms();
   }
 
   get userDrawerTitle(): string {
-    return this.currentEditingUserId ? 'Edit User' : 'Create User';
+    return this.currentEditingUserId ? 'Editar Utilizador' : 'Criar Utilizador';
   }
 
   ngOnInit(): void {
@@ -74,7 +76,7 @@ export class ListuserComponent {
   }
 
   viewUser(data: User) {
-    // Implementar visualização do usuário
+    // Implementar visualização do utilizador
   }
 
   editUser(user: User) {
@@ -84,7 +86,7 @@ export class ListuserComponent {
       name: user.name,
       email: user.email,
       status: user.status,
-      phone:user.phone,
+      phone: user.phone,
       role: user.role,
     });
     this.isUserDrawerVisible = true;
@@ -93,69 +95,64 @@ export class ListuserComponent {
   openUserDrawer() {
     this.isUserDrawerVisible = true;
     this.currentEditingUserId = null;
-    this.userForm.reset({status: 'CREATED'});
+    this.userForm.reset({ status: 'CREATED' });
   }
 
   closeUserDrawer() {
     this.isUserDrawerVisible = false;
     this.currentEditingUserId = null;
-    this.userForm.reset({status: 'CREATED'});
+    this.userForm.reset({ status: 'CREATED' });
   }
-
 
   submitUser() {
     if (this.userForm.valid) {
       const userData = this.userForm.value;
 
       if (this.currentEditingUserId) {
-        this.userService.updateUser(this.currentEditingUserId, userData).subscribe(
-          {
-            next: () => {
-              this.loadUsers();
-              this.closeUserDrawer();
-              this.message.success('User atualizado com sucesso!✅');
-            },
-            error: () => {
-              this.message.error("Error al atualizar el usuario");
-            }
+        this.userService.updateUser(this.currentEditingUserId, userData).subscribe({
+          next: () => {
+            this.loadUsers();
+            this.closeUserDrawer();
+            this.message.success('Utilizador atualizado com sucesso! ✅');
+          },
+          error: () => {
+            this.message.error("Erro ao atualizar o utilizador.");
           }
-        )
+        });
       } else {
         this.userService.addUser(userData).subscribe({
           next: () => {
             this.loadUsers();
             this.closeUserDrawer();
-            this.message.success('User Salvo com sucesso!');
+            this.message.success('Utilizador guardado com sucesso!');
           },
           error: () => {
-            this.message.error("Error al guardar el usuario");
+            this.message.error("Erro ao guardar o utilizador.");
           }
-        })
+        });
       }
     }
   }
 
-
   deleteUser(user: User): void {
     this.modal.confirm({
-      nzTitle: "Tens Certeza que quer elimiinar este user?",
-      nzContent: `User: <strong>${user.name}</strong>`,
+      nzTitle: "Tens a certeza de que queres eliminar este utilizador?",
+      nzContent: `Utilizador: <strong>${user.name}</strong>`,
       nzOkText: `Sim`,
       nzOkType: `primary`,
-      nzCancelText: `Nao`,
+      nzCancelText: `Não`,
       nzOnOk: () => {
         this.userService.deleteUser(user.id).subscribe({
           next: () => {
             this.loadUsers();
-            this.message.success('User Deletado com sucesso!');
-
+            this.message.success('Utilizador eliminado com sucesso!');
           },
           error: () => {
-            this.message.error("Error ao Deletar o usuario");
+            this.message.error("Erro ao eliminar o utilizador.");
           }
-        })
+        });
       }
-    })
+    });
   }
 
   private initForms(): void {
@@ -163,10 +160,9 @@ export class ListuserComponent {
       name: ['', Validators.required],
       email: ['', Validators.required],
       password: [''],
-      status:[''],
+      status: [''],
       phone: ['', Validators.required],
       role: ['USER', Validators.required],
     });
   }
-
 }
