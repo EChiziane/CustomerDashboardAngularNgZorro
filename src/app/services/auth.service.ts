@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environments';
 import {HttpClient} from '@angular/common/http';
 import {Observable, take, tap} from 'rxjs';
-import {Customer} from "../models/customer";
 import {User} from "../models/user";
 
 @Injectable({
@@ -28,7 +27,7 @@ export class AuthService {
     return this.http.get<User[]>(`${this.baseURL}/users`)
   }
 
-  signup(user:any): Observable<{ token: string }> {
+  signup(user: any): Observable<{ token: string }> {
     console.log(`${this.baseURL}/signup`, {user});
     return this.http.post<{ token: string }>(`${this.baseURL}/register`, user);
   }
@@ -42,14 +41,18 @@ export class AuthService {
   }
 
 
-
+  public updateUser(id: string, user: any): Observable<User> {
+    console.log(`${this.baseURL}/updateUser/${id}`);
+    return this.http.put<User>(`${this.baseURL}/${id}`, user).pipe(take(1));
+  }
 
   public deleteUser(id: any): Observable<User> {
     return this.http.delete<User>(`${this.baseURL}/${id}`)
   }
 
   public addUser(user: any): Observable<User> {
-    return this.http.post<User>(this.baseURL, user).pipe(take(1))
+    console.log(user)
+    return this.http.post<User>(`${this.baseURL}/register`, user).pipe(take(1))
   }
 
 

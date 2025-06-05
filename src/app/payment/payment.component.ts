@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PaymentService } from '../services/payment.service';
-import { Payment } from '../models/payment';
-import { Customer } from '../models/customer';
-import { CustomerService } from '../services/customer.service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {PaymentService} from '../services/payment.service';
+import {Payment} from '../models/payment';
+import {Customer} from '../models/customer';
+import {CustomerService} from '../services/customer.service';
 
 @Component({
   selector: 'app-payment',
@@ -35,7 +35,8 @@ export class PaymentComponent implements OnInit {
   constructor(
     private paymentService: PaymentService,
     private customerService: CustomerService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.getPayments();
@@ -106,7 +107,7 @@ export class PaymentComponent implements OnInit {
         this.dataSource = [...this.dataSource, newPayment];
         this.listOfDisplayData = [...this.dataSource]; // Atualiza a tabela
         this.calculatePaymentStats(); // Atualiza os dados estatísticos
-        this.paymentForm.reset({ confirmed: false }); // Reseta o formulário
+        this.paymentForm.reset({confirmed: false}); // Reseta o formulário
         this.close(); // Fecha o modal
       },
       error: (err) => {
@@ -115,11 +116,14 @@ export class PaymentComponent implements OnInit {
     });
   }
 
-  deletePayment(data: Payment) {}
+  deletePayment(data: Payment) {
+  }
 
-  editPayment(data: Payment) {}
+  editPayment(data: Payment) {
+  }
 
-  viewPayment(data: Payment) {}
+  viewPayment(data: Payment) {
+  }
 }
 
 

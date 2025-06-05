@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { CustomerService } from '../services/customer.service';
-import { Customer } from '../models/customer';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {CustomerService} from '../services/customer.service';
+import {Customer} from '../models/customer';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-customer',
@@ -30,7 +30,8 @@ export class CustomerComponent implements OnInit {
     monthsInDebt: new FormControl(1, [Validators.required, Validators.min(0)]),
   });
 
-  constructor(private http: HttpClient, private customerService: CustomerService) {}
+  constructor(private http: HttpClient, private customerService: CustomerService) {
+  }
 
   ngOnInit(): void {
     this.getCustomers();
@@ -92,9 +93,12 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  viewCustomer(data: Customer) {}
+  viewCustomer(data: Customer) {
+  }
 
-  editCustomer(data: Customer) {}
+  editCustomer(data: Customer) {
+  }
 
-  deleteCustomer(data: Customer) {}
+  deleteCustomer(data: Customer) {
+  }
 }

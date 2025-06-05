@@ -46,6 +46,8 @@ import {ManagerComponent} from './manager/manager.component';
 import {SprintComponent} from './sprint/sprint.component';
 import {DriverComponent} from './driver/driver.component';
 import {SprintDetailsComponent} from './sprint/sprint-details/sprint-details.component';
+import {CalendarComponent} from './calendar/calendar.component';
+import {NzCalendarComponent} from 'ng-zorro-antd/calendar';
 
 
 registerLocaleData(en);
@@ -58,14 +60,16 @@ registerLocaleData(en);
     CustomerDetailsComponent,
     LoginComponent,
     MainLayoutComponent,
-  SigninComponent,
+    SigninComponent,
     ListuserComponent,
     DashboardComponent,
     CarloadComponent,
     ManagerComponent,
     SprintComponent,
     DriverComponent,
-    SprintDetailsComponent
+    SprintDetailsComponent,
+    CalendarComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -108,7 +112,8 @@ registerLocaleData(en);
     NzModalModule,
     NzAvatarModule,
     NzSwitchModule,
-    NzStatisticComponent
+    NzStatisticComponent,
+    NzCalendarComponent
 
   ],
   providers: [

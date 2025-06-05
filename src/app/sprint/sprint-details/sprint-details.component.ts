@@ -17,29 +17,16 @@ import {ActivatedRoute} from '@angular/router';
   styleUrl: './sprint-details.component.scss'
 })
 export class SprintDetailsComponent {
-  listOfDisplayData: CarLoad[]=[];
-  dataDrivers: Driver[]=[];
-  dataManagers: Manager[]=[];
-  dataSprint:Sprint[]=[];
-  totalCarloads=0;
+  listOfDisplayData: CarLoad[] = [];
+  dataDrivers: Driver[] = [];
+  dataManagers: Manager[] = [];
+  dataSprint: Sprint[] = [];
+  totalCarloads = 0;
   @Input() sprintId!: string;
-
-  private loadData(): void {
-    this.loadCarloads();
-    this.getDrivers()
-    this.getManages()
-    this.getSprinters()
-  }
-  ngOnInit(): void {
-
-    this.route.params.subscribe(params => {
-      this.sprintId = params['id'];
-    })
-
-    this.loadData();
-
-
-  }
+  // Drawer controls
+  isCarloadDrawerVisible = false;
+  searchValue = '';
+  carloadForm!: FormGroup;
 
   constructor(private carloadService: CarloadService,
               private driverService: DriverService,
@@ -51,18 +38,16 @@ export class SprintDetailsComponent {
     this.initForms();
   }
 
+  ngOnInit(): void {
 
-  private loadCarloads(): void {
+    this.route.params.subscribe(params => {
+      this.sprintId = params['id'];
+    })
 
-    this.carloadService.getCarloadsBySprint(this.sprintId).subscribe(carloads => {
+    this.loadData();
 
-      this.listOfDisplayData = carloads;
-      this.totalCarloads = carloads.length;
 
-    });
   }
-
-
 
   getDrivers() {
     this.driverService.getDrivers().subscribe((drivers: Driver[]) => {
@@ -70,23 +55,17 @@ export class SprintDetailsComponent {
     });
   }
 
-  getSprinters(){
+  getSprinters() {
     this.sprintService.getSprints().subscribe((sprints: Sprint[]) => {
       this.dataSprint = sprints;
     })
   }
-
 
   getManages() {
     this.managerService.getManagers().subscribe((managers: Manager[]) => {
       this.dataManagers = managers;
     });
   }
-
-
-  // Drawer controls
-  isCarloadDrawerVisible = false;
-  searchValue = '';
 
   // Carload methods
   openCarloadDrawer(): void {
@@ -109,7 +88,6 @@ export class SprintDetailsComponent {
   deleteCarload(carload: CarLoad) {
     // lógica para excluir
   }
-  carloadForm!: FormGroup;
 
   closeCarloadDrawer(): void {
     this.isCarloadDrawerVisible = false;
@@ -129,6 +107,23 @@ export class SprintDetailsComponent {
     }
   }
 
+  private loadData(): void {
+    this.loadCarloads();
+    this.getDrivers()
+    this.getManages()
+    this.getSprinters()
+  }
+
+  private loadCarloads(): void {
+
+    this.carloadService.getCarloadsBySprint(this.sprintId).subscribe(carloads => {
+
+      this.listOfDisplayData = carloads;
+      this.totalCarloads = carloads.length;
+
+    });
+  }
+
   private initForms(): void {
     this.carloadForm = this.fb.group({
       deliveryDestination: ['', Validators.required],
@@ -143,7 +138,6 @@ export class SprintDetailsComponent {
       deliveryStatus: ['', Validators.required]
     });
   }
-
 
 
 }

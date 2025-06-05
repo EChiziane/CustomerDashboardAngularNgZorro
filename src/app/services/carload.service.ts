@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, take } from 'rxjs';
-import { environment } from '../../environments/environments';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable, take} from 'rxjs';
+import {environment} from '../../environments/environments';
 import {CarLoad} from '../models/carlaod';
 
 
@@ -12,7 +12,8 @@ export class CarloadService {
 
   private baseURL = environment.baseURL + "/carloads";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   public getCarloads(): Observable<CarLoad[]> {
     return this.http.get<CarLoad[]>(this.baseURL);

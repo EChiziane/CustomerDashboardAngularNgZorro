@@ -3,7 +3,6 @@ import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {isPlatformBrowser} from '@angular/common';
-import {response} from 'express';
 
 @Component({
   selector: 'app-login',
@@ -11,24 +10,17 @@ import {response} from 'express';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
 
   @Output() loginSuccess = new EventEmitter<void>();
-
-  logout() {
-    localStorage.removeItem('token')
-  }
-
   userForm = new FormGroup({
     login: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     rememberMe: new FormControl(false)
   });
-
   forgotPasswordForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email])
   });
-
   validateForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
@@ -39,7 +31,6 @@ export class LoginComponent implements OnInit{
     website: new FormControl('', [Validators.required]),
     agree: new FormControl(false, Validators.requiredTrue)
   });
-
   isForgotPasswordVisible = false;
   isRegisterVisible = false;
   responseMessage: string | null = null;
@@ -50,6 +41,10 @@ export class LoginComponent implements OnInit{
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: object
   ) {
+  }
+
+  logout() {
+    localStorage.removeItem('token')
   }
 
   login() {

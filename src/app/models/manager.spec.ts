@@ -1,4 +1,4 @@
-import { Manager } from './manager';
+import {Manager} from './manager';
 
 describe('Manager', () => {
   it('should create an instance', () => {

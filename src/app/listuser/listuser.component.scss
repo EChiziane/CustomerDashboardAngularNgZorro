@@ -1,66 +1,101 @@
-/* ============================= */
-/* Estilos para a div MAIN-CONTENT */
-/* ============================= */
 .main-content {
-  /* Se precisar de estilos globais para o container principal */
+  padding: 24px;
+  background: #f5f2f5;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-/* ============================= */
-/* Estilos para a div HEADER (Cabeçalho) */
-/* ============================= */
 .header {
-  /* Estilos para o cabeçalho */
+  margin-bottom: 14px;
+  flex-shrink: 0;
+
+  p {
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0;
+  }
 }
 
-/* ============================= */
-/* Estilos para a div DASH (Painel de cartões) */
-/* ============================= */
 .dash {
-  /* Estilos para a seção de dashboard */
+  margin-bottom: 24px;
+  flex-shrink: 0;
+
+  nz-card {
+    text-align: center;
+
+    p {
+      font-size: 24px;
+      margin: 0;
+    }
+  }
 }
 
-/* ============================= */
-/* Estilos para a div FILTER (Campo de entrada e botão) */
-/* ============================= */
 .filter {
   display: flex;
-  gap: 10px; /* Espaço entre os elementos */
-  align-items: stretch; /* Faz os elementos terem a mesma altura */
+  margin-bottom: 16px;
+  gap: 8px;
+  flex-shrink: 0;
+
+  input {
+    flex: 1;
+    max-width: 300px;
+  }
 }
 
-.input-flex {
-  flex: 1; /* Faz o input ocupar o máximo de espaço possível */
+.table-container {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.table-scroll {
+  flex: 1;
+  overflow: auto;
+  padding: 0 16px 16px 16px;
+}
+
+nz-table {
+  min-width: 100%;
+
+  thead {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+  }
+}
+
+nz-drawer {
+  nz-form-item {
+    margin-bottom: 16px;
+  }
+
+  input {
+    width: 100%;
+  }
 }
 
 [nz-button] {
   margin-right: 8px;
-  margin-bottom: 12px;
+
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
-/* ============================= */
-/* Estilos para a div TABLE (Tabela de dados) */
-/* ============================= */
-.table {
-  /* Estilos para a tabela */
+.avatar {
+  margin-bottom: 16px;
+  margin-left: 20px;
 }
 
-/* ============================= */
-/* Estilos para a div SEARCH-BOX (Filtro de pesquisa dentro da tabela) */
-/* ============================= */
-.search-box {
-  padding: 8px;
-}
-
-.search-box input {
-  width: 188px;
-  margin-bottom: 8px;
-  display: block;
-}
-
-.search-box button {
-  width: 90px;
-}
-
-.search-button {
-  margin-right: 8px;
+.avatar-pace {
+  margin-bottom: 16px;
+  margin-left: 200px;
 }

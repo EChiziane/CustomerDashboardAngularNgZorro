@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Sprint } from '../models/sprint';
-import { SprintService } from '../services/sprint.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {Driver} from '../models/driver';
+import {Component, OnInit} from '@angular/core';
+import {Sprint} from '../models/sprint';
+import {SprintService} from '../services/sprint.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NzMessageService} from 'ng-zorro-antd/message';
 import {NzModalService} from 'ng-zorro-antd/modal';
 
@@ -31,32 +30,27 @@ export class SprintComponent implements OnInit {
     this.initForms();
   }
 
-  ngOnInit(): void {
-    this.loadSprints();
+  get driverDrawerTitle(): string {
+    return this.currentEditingSprintId ? 'Edição de Sprint' : 'Criação de Sprint';
   }
 
-  private loadSprints(): void {
-    this.sprintService.getSprints().subscribe(sprints => {
-      this.listOfDisplayData = sprints;
-      this.totalActiveSprints= sprints.filter(d => d.status === 'ACTIVO').length;
-      this.totalInactiveSprints= sprints.filter(d => d.status === 'INACTIVO').length;
-      this.totalSprints = sprints.length;
-    });
+  ngOnInit(): void {
+    this.loadSprints();
   }
 
   openSprintDrawer(): void {
     this.isSprintDrawerVisible = true;
     this.currentEditingSprintId = null; // Garante que seja criação
-    this.sprintForm.reset({ status: 'ACTIVO' });
+    this.sprintForm.reset({status: 'ACTIVO'});
   }
 
 
   submitSprint(): void {
     if (this.sprintForm.valid) {
-      const  sprintData= this.sprintForm.value;
+      const sprintData = this.sprintForm.value;
 
-      if(this.currentEditingSprintId){
-        this.sprintService.updateSprint(this.currentEditingSprintId,sprintData).subscribe
+      if (this.currentEditingSprintId) {
+        this.sprintService.updateSprint(this.currentEditingSprintId, sprintData).subscribe
         ({
             next: () => {
               this.loadSprints();
@@ -68,9 +62,7 @@ export class SprintComponent implements OnInit {
             }
           }
         )
-      }
-      else
-      {
+      } else {
         this.sprintService.addSprint(sprintData).subscribe(
           {
             next: () => {
@@ -91,7 +83,7 @@ export class SprintComponent implements OnInit {
 
   deleteSprint(sprint: Sprint): void {
     this.modal.confirm({
-      nzTitle:'Tens certeza que quer eliminar o Sprint?',
+      nzTitle: 'Tens certeza que quer eliminar o Sprint?',
       nzContent: `Sprint: <strong>${sprint.name}</strong>`,
       nzOkText: 'Sim',
       nzOkType: 'primary',
@@ -112,28 +104,22 @@ export class SprintComponent implements OnInit {
 
   }
 
-
-get driverDrawerTitle(): string {
-    return this.currentEditingSprintId ? 'Edição de Sprint' : 'Criação de Sprint';
-}
-
   editSprint(sprint: Sprint): void {
     this.currentEditingSprintId = sprint.id;
 
     this.sprintForm.patchValue({
       code: sprint.code,
       name: sprint.name,
-    description: sprint.description,
-     status: sprint.status
+      description: sprint.description,
+      status: sprint.status
     });
 
     this.isSprintDrawerVisible = true;
   }
 
-
   closeSprintDrawer(): void {
     this.isSprintDrawerVisible = false;
-    this.sprintForm.reset({ status: 'ACTIVO' });
+    this.sprintForm.reset({status: 'ACTIVO'});
     this.currentEditingSprintId = null;
   }
 
@@ -150,6 +136,19 @@ get driverDrawerTitle(): string {
     );
   }
 
+  viewSprint(sprint: Sprint) {
+
+  }
+
+  private loadSprints(): void {
+    this.sprintService.getSprints().subscribe(sprints => {
+      this.listOfDisplayData = sprints;
+      this.totalActiveSprints = sprints.filter(d => d.status === 'ACTIVO').length;
+      this.totalInactiveSprints = sprints.filter(d => d.status === 'INACTIVO').length;
+      this.totalSprints = sprints.length;
+    });
+  }
+
   private initForms(): void {
     this.sprintForm = this.fb.group({
       code: ['', Validators.required],
@@ -157,9 +156,5 @@ get driverDrawerTitle(): string {
       description: ['', Validators.required],
       status: ['ACTIVO', Validators.required],
     });
-  }
-
-  viewSprint(sprint: Sprint) {
-
   }
 }

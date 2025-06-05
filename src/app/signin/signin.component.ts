@@ -1,6 +1,5 @@
-import {Component, inject} from '@angular/core';
-import {FormBuilder, FormGroup, NonNullableFormBuilder, Validators} from '@angular/forms';
-import {Subject} from 'rxjs';
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../services/auth.service';
 
 @Component({

@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {CarLoad} from '../models/carlaod';
 import {CarloadService} from '../services/carload.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Customer} from '../models/customer';
 import {Driver} from '../models/driver';
 import {DriverService} from '../services/driver.service';
 import {Manager} from '../models/manager';
@@ -17,22 +16,15 @@ import {SprintService} from '../services/sprint.service';
   styleUrl: './carload.component.scss'
 })
 export class CarloadComponent {
-  listOfDisplayData: CarLoad[]=[];
-  dataDrivers: Driver[]=[];
-  dataManagers: Manager[]=[];
-  dataSprint:Sprint[]=[];
-  totalCarloads=0;
-
-
-  private loadData(): void {
-    this.loadCarloads();
-    this.getDrivers()
-    this.getManages()
-    this.getSprinters()
-  }
-  ngOnInit(): void {
-    this.loadData();
-  }
+  listOfDisplayData: CarLoad[] = [];
+  dataDrivers: Driver[] = [];
+  dataManagers: Manager[] = [];
+  dataSprint: Sprint[] = [];
+  totalCarloads = 0;
+  // Drawer controls
+  isCarloadDrawerVisible = false;
+  searchValue = '';
+  carloadForm!: FormGroup;
 
   constructor(private carloadService: CarloadService,
               private driverService: DriverService,
@@ -42,16 +34,9 @@ export class CarloadComponent {
     this.initForms();
   }
 
-
-  private loadCarloads(): void {
-    this.carloadService.getCarloads().subscribe(carloads => {
-      this.listOfDisplayData = carloads;
-      this.totalCarloads = carloads.length;
-
-    });
+  ngOnInit(): void {
+    this.loadData();
   }
-
-
 
   getDrivers() {
     this.driverService.getDrivers().subscribe((drivers: Driver[]) => {
@@ -59,23 +44,17 @@ export class CarloadComponent {
     });
   }
 
-  getSprinters(){
+  getSprinters() {
     this.sprintService.getSprints().subscribe((sprints: Sprint[]) => {
       this.dataSprint = sprints;
     })
   }
-
 
   getManages() {
     this.managerService.getManagers().subscribe((managers: Manager[]) => {
       this.dataManagers = managers;
     });
   }
-
-
-  // Drawer controls
-  isCarloadDrawerVisible = false;
-  searchValue = '';
 
   // Carload methods
   openCarloadDrawer(): void {
@@ -98,7 +77,6 @@ export class CarloadComponent {
   deleteCarload(carload: CarLoad) {
     // lógica para excluir
   }
- carloadForm!: FormGroup;
 
   closeCarloadDrawer(): void {
     this.isCarloadDrawerVisible = false;
@@ -118,6 +96,21 @@ export class CarloadComponent {
     }
   }
 
+  private loadData(): void {
+    this.loadCarloads();
+    this.getDrivers()
+    this.getManages()
+    this.getSprinters()
+  }
+
+  private loadCarloads(): void {
+    this.carloadService.getCarloads().subscribe(carloads => {
+      this.listOfDisplayData = carloads;
+      this.totalCarloads = carloads.length;
+
+    });
+  }
+
   private initForms(): void {
     this.carloadForm = this.fb.group({
       deliveryDestination: ['', Validators.required],
@@ -132,7 +125,6 @@ export class CarloadComponent {
       deliveryStatus: ['', Validators.required]
     });
   }
-
 
 
 }

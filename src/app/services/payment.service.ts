@@ -18,7 +18,7 @@ export class PaymentService {
     return this.http.get<Payment[]>(this.baseURL);
   }
 
-  public getCustomerPayments(id:string): Observable<Payment[]> {
+  public getCustomerPayments(id: string): Observable<Payment[]> {
     return this.http.get<Payment[]>(`${this.baseURL}/customer/${id}`);
   }
 

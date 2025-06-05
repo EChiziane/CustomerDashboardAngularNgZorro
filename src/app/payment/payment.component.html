@@ -27,7 +27,8 @@
 
   <!-- Filtro (Campo de pesquisa e botão "Adicionar") -->
   <div class="filter">
-    <input class="input-flex" nz-input placeholder="Search by amount" type="text" [(ngModel)]="searchValue" (input)="filterData()"/>
+    <input (input)="filterData()" [(ngModel)]="searchValue" class="input-flex" nz-input placeholder="Search by amount"
+           type="text"/>
 
     <button (click)="open()" nz-button nzType="primary">Adicionar</button>
   </div>
@@ -57,7 +58,8 @@
         <td>{{ data.confirmed ? 'Yes' : 'No' }}</td>
         <td>{{ data.paymentDate | date: 'dd MM yyyy - HH:mm' }}</td>
         <td>
-          <button (click)="viewPayment(data)" [routerLink]="['/payment-detail', data.id]" nz-button nzSize="small" nzType="link">
+          <button (click)="viewPayment(data)" [routerLink]="['/payment-detail', data.id]" nz-button nzSize="small"
+                  nzType="link">
             <nz-icon nzTheme="outline" nzType="eye"></nz-icon>
           </button>
           <button (click)="printPayment(data)" nz-button nzSize="small" nzType="link">
@@ -121,7 +123,8 @@
           <nz-form-label>Customer</nz-form-label>
           <nz-form-control>
             <nz-select formControlName="customerId" nzPlaceHolder="Select Customer">
-              <nz-option *ngFor="let customer of dataCostumers" [nzLabel]="customer.name" [nzValue]="customer.id"></nz-option>
+              <nz-option *ngFor="let customer of dataCostumers" [nzLabel]="customer.name"
+                         [nzValue]="customer.id"></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>

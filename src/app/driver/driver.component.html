@@ -25,7 +25,7 @@
     </div>
   </div>
   <div class="filter">
-    <input [(ngModel)]="searchValue" (ngModelChange)="search()" nz-input placeholder="Pesquisar..." type="text"/>
+    <input (ngModelChange)="search()" [(ngModel)]="searchValue" nz-input placeholder="Pesquisar..." type="text"/>
     <button (click)="openDriverDrawer()" nz-button nzType="primary">Novo Motorista</button>
   </div>
   <div class="table-container">
@@ -57,18 +57,18 @@
           </td>
           <td>{{ driver.createdAt | date: 'dd MM yyyy - HH:mm' }}</td>
           <td>
-            <button (click)="deleteDriver(driver)" nz-button nzType="link" nzDanger>
-              <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
+            <button (click)="deleteDriver(driver)" nz-button nzDanger nzType="link">
+              <nz-icon nzTheme="outline" nzType="delete"></nz-icon>
             </button>
 
-            <button (click)="editDriver(driver)" nz-button nzType="link" nzSize="small">
-              <nz-icon nzType="edit" nzTheme="outline"></nz-icon>
+            <button (click)="editDriver(driver)" nz-button nzSize="small" nzType="link">
+              <nz-icon nzTheme="outline" nzType="edit"></nz-icon>
             </button>
             <button
               (click)="deleteDriver(driver)"
-              nz-button nzType="link" nzSize="small"
-              nzDanger>
-              <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
+              nz-button nzDanger nzSize="small"
+              nzType="link">
+              <nz-icon nzTheme="outline" nzType="delete"></nz-icon>
             </button>
 
           </td>
@@ -81,12 +81,12 @@
 
 <!-- Driver Drawer -->
 <nz-drawer
+  (nzOnClose)="closeDriverDrawer()"
+  [nzBodyStyle]="{ overflow: 'auto' }"
+  [nzFooter]="nzDriverDrawerFooter"
+  [nzTitle]="driverDrawerTitle"
   [nzVisible]="isDriverDrawerVisible"
   [nzWidth]="480"
-  [nzTitle]="driverDrawerTitle"
-  [nzBodyStyle]="{ overflow: 'auto' }"
-  (nzOnClose)="closeDriverDrawer()"
-  [nzFooter]="nzDriverDrawerFooter"
 >
   <form *nzDrawerContent [formGroup]="driverForm" nz-form>
     <nz-form-item>
@@ -104,15 +104,14 @@
     </nz-form-item>
 
 
-
     <nz-form-item>
       <nz-form-label nzRequired>Descricao do carros</nz-form-label>
       <nz-form-control>
         <nz-select formControlName="carDescription" nzPlaceHolder="Selecione a Descrição do carro">
-          <nz-option nzValue="7m3-HINO RANGER" nzLabel="7m3-HINO RANGER"></nz-option>
-          <nz-option nzValue="18m3-TATA AMARELO" nzLabel="18m3-TATA AMARELO"></nz-option>
-          <nz-option nzValue="20m3-TATA AZUL" nzLabel="20m3-TATA AZUL"></nz-option>
-          <nz-option nzValue="22m3-SINOTRUCK" nzLabel="22m3-SINOTRUCK"></nz-option>
+          <nz-option nzLabel="7m3-HINO RANGER" nzValue="7m3-HINO RANGER"></nz-option>
+          <nz-option nzLabel="18m3-TATA AMARELO" nzValue="18m3-TATA AMARELO"></nz-option>
+          <nz-option nzLabel="20m3-TATA AZUL" nzValue="20m3-TATA AZUL"></nz-option>
+          <nz-option nzLabel="22m3-SINOTRUCK" nzValue="22m3-SINOTRUCK"></nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>
@@ -121,15 +120,15 @@
       <nz-form-label nzRequired>Status</nz-form-label>
       <nz-form-control>
         <nz-select formControlName="status" nzPlaceHolder="Selecione o status">
-          <nz-option nzValue="ACTIVO" nzLabel="ACTIVO"></nz-option>
-          <nz-option nzValue="INACTIVO" nzLabel="INACTIVO"></nz-option>
+          <nz-option nzLabel="ACTIVO" nzValue="ACTIVO"></nz-option>
+          <nz-option nzLabel="INACTIVO" nzValue="INACTIVO"></nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>
   </form>
 
   <ng-template #nzDriverDrawerFooter>
-    <button nz-button (click)="closeDriverDrawer()">Cancelar</button>
-    <button nz-button nzType="primary" (click)="submitDriver()" [disabled]="!driverForm.valid">Salvar</button>
+    <button (click)="closeDriverDrawer()" nz-button>Cancelar</button>
+    <button (click)="submitDriver()" [disabled]="!driverForm.valid" nz-button nzType="primary">Salvar</button>
   </ng-template>
 </nz-drawer>

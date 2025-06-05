@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Driver } from '../models/driver';
-import { DriverService } from '../services/driver.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Driver} from '../models/driver';
+import {DriverService} from '../services/driver.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NzModalService} from 'ng-zorro-antd/modal';
 import {NzMessageService} from 'ng-zorro-antd/message';
 
@@ -30,28 +30,20 @@ export class DriverComponent implements OnInit {
     this.initForm();
   }
 
+  get driverDrawerTitle(): string {
+    return this.currentEditingDriverId ? 'Edição de Motorista' : 'Criação de Motorista';
+  }
+
   ngOnInit(): void {
     this.loadDrivers();
 
   }
 
-  private loadDrivers(): void {
-    this.driverService.getDrivers().subscribe(drivers => {
-      this.listOfDisplayData = drivers;
-      this.totalDrivers = drivers.length;
-      this.totalActiveDrivers = drivers.filter(d => d.status === 'ACTIVO').length;
-      this.totalInactiveDrivers = drivers.filter(d => d.status === 'INACTIVO').length;
-    });
-  }
-
-
-
   openDriverDrawer(): void {
     this.isDriverDrawerVisible = true;
     this.currentEditingDriverId = null; // Garante que seja criação
-    this.driverForm.reset({ status: 'ACTIVO' });
+    this.driverForm.reset({status: 'ACTIVO'});
   }
-
 
 
   submitDriver(): void {
@@ -86,11 +78,6 @@ export class DriverComponent implements OnInit {
     }
   }
 
-
-  get driverDrawerTitle(): string {
-    return this.currentEditingDriverId ? 'Edição de Motorista' : 'Criação de Motorista';
-  }
-
   deleteDriver(driver: Driver): void {
     this.modal.confirm({
       nzTitle: 'Tens certeza que quer eliminar o Driver?',
@@ -111,19 +98,8 @@ export class DriverComponent implements OnInit {
     });
   }
 
-
-
   search(): void {
     // Implementa aqui o filtro de pesquisa
-  }
-
-  private initForm(): void {
-    this.driverForm = this.fb.group({
-      name: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      carDescription: ['', Validators.required],
-      status: ['ACTIVO', Validators.required]
-    });
   }
 
   editDriver(driver: Driver): void {
@@ -139,11 +115,28 @@ export class DriverComponent implements OnInit {
     this.isDriverDrawerVisible = true;
   }
 
-
   closeDriverDrawer(): void {
     this.isDriverDrawerVisible = false;
-    this.driverForm.reset({ status: 'ACTIVO' });
+    this.driverForm.reset({status: 'ACTIVO'});
     this.currentEditingDriverId = null;
+  }
+
+  private loadDrivers(): void {
+    this.driverService.getDrivers().subscribe(drivers => {
+      this.listOfDisplayData = drivers;
+      this.totalDrivers = drivers.length;
+      this.totalActiveDrivers = drivers.filter(d => d.status === 'ACTIVO').length;
+      this.totalInactiveDrivers = drivers.filter(d => d.status === 'INACTIVO').length;
+    });
+  }
+
+  private initForm(): void {
+    this.driverForm = this.fb.group({
+      name: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      carDescription: ['', Validators.required],
+      status: ['ACTIVO', Validators.required]
+    });
   }
 
 

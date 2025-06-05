@@ -1,52 +1,52 @@
 <div class="container">
 
-  <nz-avatar nzIcon="user" nzSize="large" class="avatar"></nz-avatar>
-  <div class="header">
+  <nz-avatar class="avatar" nzIcon="user" nzSize="large"></nz-avatar>
+  <div class="avatar">
     <p>Registrar User</p>
   </div>
-  <form nz-form [formGroup]="signinForm" (ngSubmit)="submitForm()" class="form-container">
+  <form (ngSubmit)="submitForm()" [formGroup]="signinForm" class="form-container" nz-form>
     <nz-form-item>
-      <nz-form-label nzFor="name" [nzSm]="6" [nzXs]="24" nzRequired>Nome</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>Nome</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input formControlName="name" id="name" />
+        <input formControlName="name" id="name" nz-input/>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label nzFor="email" [nzSm]="6" [nzXs]="24" nzRequired>Email</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email" nzRequired>Email</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input type="email" formControlName="email" id="email" />
+        <input formControlName="email" id="email" nz-input type="email"/>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label nzFor="phone" [nzSm]="6" [nzXs]="24" nzRequired>Telefone</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="phone" nzRequired>Telefone</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input formControlName="phone" id="phone" />
+        <input formControlName="phone" id="phone" nz-input/>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label nzFor="login" [nzSm]="6" [nzXs]="24" nzRequired>Login</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="login" nzRequired>Login</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input formControlName="login" id="login" />
+        <input formControlName="login" id="login" nz-input/>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label nzFor="password" [nzSm]="6" [nzXs]="24" nzRequired>Senha</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>Senha</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
-        <input nz-input type="password" formControlName="password" id="password" />
+        <input formControlName="password" id="password" nz-input type="password"/>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-label nzFor="role" [nzSm]="6" [nzXs]="24" nzRequired>Função</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="role" nzRequired>Função</nz-form-label>
       <nz-form-control [nzSm]="14" [nzXs]="24">
         <nz-select formControlName="role" id="role">
-          <nz-option nzValue="USER" nzLabel="Usuário"></nz-option>
-          <nz-option nzValue="ADMIN" nzLabel="Administrador"></nz-option>
+          <nz-option nzLabel="Usuário" nzValue="USER"></nz-option>
+          <nz-option nzLabel="Administrador" nzValue="ADMIN"></nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-      <nz-form-control [nzSm]="14" [nzOffset]="6">
-        <button nz-button nzType="primary" [disabled]="signinForm.invalid">Registrar</button>
+      <nz-form-control [nzOffset]="6" [nzSm]="14">
+        <button [disabled]="signinForm.invalid" nz-button nzType="primary">Registrar</button>
       </nz-form-control>
     </nz-form-item>
   </form>

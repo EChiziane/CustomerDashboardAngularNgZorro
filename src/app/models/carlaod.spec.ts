@@ -1,4 +1,4 @@
-import { Carlaod } from './carlaod';
+import {Carlaod} from './carlaod';
 
 describe('Carlaod', () => {
   it('should create an instance', () => {
