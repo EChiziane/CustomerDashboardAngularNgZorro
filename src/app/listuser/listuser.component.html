@@ -13,7 +13,7 @@
     <div class="table-scroll">
       <nz-table #nzTable
                 [nzData]="listOfDisplayData"
-                [nzScroll]="{x:'800px',y:'480px'}"
+                [nzScroll]="{ y: '45vh' }"
                 nzTableLayout="fixed">
 
         <thead>
@@ -36,9 +36,11 @@
           <td>{{ data.login }}</td>
           <td>{{ data.role }}</td>
           <td>{{ data.phone }}</td>
-          <nz-tag [nzColor]="data.status === 'ACTIVE' ? 'green' : 'red'">
-            <td>{{ data.status }}</td>
-          </nz-tag>
+          <td>
+            <nz-tag [nzColor]="data.status === 'ACTIVE' ? 'green' : 'red'">
+              {{ data.status }}
+            </nz-tag>
+          </td>
           <td>{{ data.createdAt | date: 'dd MM yyyy - HH:mm' }}</td>
           <td>
             <button (click)="viewUser(data)" [routerLink]="['/user-detail',data ]" nz-button nzSize="small" nzType="link">

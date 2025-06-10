@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
-  baseURL: 'http://localhost:8080',
-  baseURL1: 'https://watersytemmanagementjava-production.up.railway.app'
+  baseURL2: 'http://localhost:8080',
+  baseURL1: 'http://auth-service-java-spring-angular-production.up.railway.app',
+  baseURL:'https://auth-service-java-spring-angular-1.onrender.com'
 };
